@@ -1,4 +1,11 @@
-﻿
+﻿/******************************************************************************
+  Author:ZC    Version :1.1         Date:2017/02/8
+  Description:    developing version. 
+  History:
+    <author>  <time>   <version>   <description>
+    ZC        2017/2/7     1.0      initialization.
+    ZC        2017/2/8     1.1      create random expression
+*****************************************************************************/
 #include<cstdlib>
 #include<ctime>
 #include<string>
