@@ -139,7 +139,7 @@ string Expression::RandomPart()
 		int randNum2;
 		randNum2 = RandomNum();
 
-		if (oper == '/') //如果出现了触发，要确保第二个数不为0
+		if (oper == '/') //如果出现了除法，要确保第二个数不为0
 		{
 			while (randNum2 == 0)
 				randNum2 = RandomNum();
