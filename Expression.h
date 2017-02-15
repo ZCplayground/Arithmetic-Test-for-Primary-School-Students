@@ -308,7 +308,7 @@ Expression Expression::CreateInfixExpression()
 	return *this;
 }
 
-/*参数是一个string类型，代表一个中缀表达式，返回值是string类型，是其对应的逆波兰式*/
+/*修改私有类成员expression，修改成其对应的逆波兰式*/
 Expression Expression::ReversePolishNotation()
 {
 	Stack s1, s2;
