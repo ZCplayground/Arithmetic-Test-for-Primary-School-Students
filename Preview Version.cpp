@@ -1,4 +1,4 @@
-ï»¿#include<iostream>
+#include<iostream>
 #include<string>
 #include<cstdlib>
 #include<ctime>
@@ -6,637 +6,749 @@
 
 using namespace std;
 
-/*éšæœºç”Ÿæˆè¿ç®—ç¬¦ç›¸å…³ï¼Œå¯¹äºå°å­¦ç”Ÿï¼Œè¦å‡å°‘é™¤æ³•å‡ºç°çš„æ¦‚ç‡*/
+/*Ëæ»úÉú³ÉÔËËã·ûÏà¹Ø£¬¶ÔÓÚĞ¡Ñ§Éú£¬Òª¼õÉÙ³ı·¨³öÏÖµÄ¸ÅÂÊ*/
 char *rand_Oper_List = "+-*/+-*+*/-+*-+/*-+-*-+*/-+*-*+-*/+-*+*+-*-+*-+/*/+-/*-++-*/-*+-+*";
 const int operListLen = strlen(rand_Oper_List);
 
-/*éšæœºæ•°ã€éšæœºç§å­ç›¸å…³*/
-static unsigned int long seed = (unsigned int)time(NULL);/*ç”¨æ—¶é—´å®šä¹‰åˆå§‹ç§å­*/
-unsigned int RandomeSeed(void)/*æ¯æ¬¡éšæœºåè®©ç§å­å˜æˆä¸€ä¸ªæ–°çš„*/
+/*Ëæ»úÊı¡¢Ëæ»úÖÖ×ÓÏà¹Ø*/
+static unsigned int long seed = (unsigned int)time(NULL);/*ÓÃÊ±¼ä¶¨Òå³õÊ¼ÖÖ×Ó*/
+unsigned int RandomeSeed(void)/*Ã¿´ÎËæ»úºóÈÃÖÖ×Ó±ä³ÉÒ»¸öĞÂµÄ*/
 {
-	seed = seed * 11035152465 + 12345;
-	return (unsigned int)(seed / 65536) % 32768;
+    seed = seed * 11035152465 + 12345;
+    return (unsigned int)(seed / 65536) % 32768;
 }
-/*è§£é‡Šä¸‹ä¸ºä»€ä¹ˆã€‚å¦‚æœåªæœ‰æ—¶é—´ä½œä¸ºç§å­ï¼Œé‚£ä¹ˆå¦‚æœç¨‹åºåœ¨ä¸€ç§’ä¹‹å†…è·‘å®Œï¼Œä¼šå¯¼è‡´æ‰€æœ‰è®¡ç®—é¢˜éƒ½æ˜¯ä¸€æ ·çš„*/
+/*½âÊÍÏÂÎªÊ²Ã´¡£Èç¹ûÖ»ÓĞÊ±¼ä×÷ÎªÖÖ×Ó£¬ÄÇÃ´Èç¹û³ÌĞòÔÚÒ»ÃëÖ®ÄÚÅÜÍê£¬»áµ¼ÖÂËùÓĞ¼ÆËãÌâ¶¼ÊÇÒ»ÑùµÄ*/
 
 // stack.h
 //#include "stack.h"
-/*æ•°æ®ç»“æ„æ ˆï¼Œstackç±»å£°æ˜*/
+/*Êı¾İ½á¹¹Õ»£¬stackÀàÉùÃ÷*/
 class Stack
 {
 private:
-	int *Data;
-	int posi;
+    int *Data;
+    int posi;
 public:
-	Stack();
-	~Stack();
-	bool empty() const;
-	int top() const;
-	bool push(const int & item);
-	bool pop();
-	int size();
+    Stack();
+    ~Stack();
+    bool empty() const;
+    int top() const;
+    bool push(const int & item);
+    bool pop();
+    int size();
 };
 
-/*stackç±»æ–¹æ³•*/
+/*stackÀà·½·¨*/
 Stack::Stack()
 {
-	Data = new int[50];
+    Data = new int[50];
 }
 
 Stack::~Stack()
 {
-	delete[] Data;
+    delete[] Data;
 }
 bool Stack::empty()const
 {
-	return posi == 0;
+    return posi == 0;
 }
 
 int Stack::top()const
 {
-	if (empty())
-	{
-		return false;
-	}
-	else
-	{
-		return Data[posi - 1];
-	}
+    if (empty())
+    {
+        return false;
+    }
+    else
+    {
+        return Data[posi - 1];
+    }
 }
 
 bool Stack::push(const int & item)
 {
-	if (posi < 50)
-	{
-		Data[posi++] = item;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (posi < 50)
+    {
+        Data[posi++] = item;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool Stack::pop()
 {
-	if (posi > 0)
-	{
-		int temp;
-		temp = Data[--posi];
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (posi > 0)
+    {
+        int temp;
+        temp = Data[--posi];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 int Stack::size()
 {
-	return posi;
+    return posi;
 }
 
-//åœ¨è¡¨è¾¾å¼çš„è®¡ç®—å€¼ä¸ç¬¦åˆè¦æ±‚æ—¶ï¼Œæ˜¯FALSE
+//ÔÚ±í´ïÊ½µÄ¼ÆËãÖµ²»·ûºÏÒªÇóÊ±£¬ÊÇFALSE
 #define FALSE -9999
 
-/*Expressionï¼Œè¡¨è¾¾å¼ç±»ã€‚ç±»å£°æ˜éƒ¨åˆ†: Expression.hã€‚*/
+/*Expression£¬±í´ïÊ½Àà¡£ÀàÉùÃ÷²¿·Ö: Expression.h¡£*/
 //#include "Expression.h"
 class Expression
 {
 private:
-	string expression;
-	string reversePolishNotation;
-	int value;
+    string expression;
+    string reversePolishNotation;
+    int value;
 
 public:
-	Expression();
-	~Expression();
+    Expression();
+    ~Expression();
 
-	int RandomNum();
-	char RandomOperator();
+    int RandomNum();
+    char RandomOperator();
 
-	string & AddOperator(const char oper);
-	string RandomPart();
-	string & AddPart(const string & part);
+    string & AddOperator(const char oper);
+    string RandomPart();
+    string & AddPart(const string & part);
 
-	int PartValue(const string & part);
-	Expression CreateInfixExpression();
-	Expression ReversePolishNotation();
-	int ExpressionValue();
+    int PartValue(const string & part);
+    Expression CreateInfixExpression();
+    Expression ReversePolishNotation();
+    int ExpressionValue();
 
-	friend ostream & operator<<(ostream & os, const Expression &e);//é‡è½½<<è¿ç®—ç¬¦
+    friend ostream & operator<<(ostream & os, const Expression &e);//ÖØÔØ<<ÔËËã·û
 };
 
-/*è¡¨è¾¾å¼ç±»ï¼Œç±»æ–¹æ³•éƒ¨åˆ† Expression.cpp*/
+/*±í´ïÊ½Àà£¬Àà·½·¨²¿·Ö Expression.cpp*/
 
-/*æ„é€ å‡½æ•°*/
+/*¹¹Ôìº¯Êı*/
 Expression::Expression()
 {
-	expression = "";
-	string reversePolishNotation = "";
-	value = FALSE;
+    expression = "";
+    string reversePolishNotation = "";
+    value = FALSE;
 }
 
 Expression::~Expression()
 {
 
 }
-/*éšæœºç”Ÿæˆä¸€ä¸ªæ•°å­—ï¼ŒèŒƒå›´0~10*/
+/*Ëæ»úÉú³ÉÒ»¸öÊı×Ö£¬·¶Î§0~10*/
 int Expression::RandomNum()
 {
-	srand(RandomeSeed());
-	int randNum;
-	randNum = rand() % 11;
-	return randNum;
+    srand(RandomeSeed());
+    int randNum;
+    randNum = rand() % 11;
+    return randNum;
 }
 
-/*éšæœºç”Ÿæˆä¸€ä¸ªæ“ä½œç¬¦å¹¶è¿”å›ï¼Œè¿”å›å€¼ç±»å‹char*/
+/*Ëæ»úÉú³ÉÒ»¸ö²Ù×÷·û²¢·µ»Ø£¬·µ»ØÖµÎªcharÀàĞÍ*/
 char Expression::RandomOperator()
 {
-	int randOperIndex;
-	srand(RandomeSeed());
-	randOperIndex = rand() % operListLen;
-	return rand_Oper_List[randOperIndex];
+    int randOperIndex;
+    srand(RandomeSeed());
+    randOperIndex = rand() % operListLen;
+    return rand_Oper_List[randOperIndex];
 }
 
-/*æŠŠæ“ä½œç¬¦operè¿æ¥åœ¨expressionå*/
+/*°Ñ²Ù×÷·ûoperÁ¬½ÓÔÚexpressionºó*/
 string & Expression::AddOperator(const char oper)
 {
-	expression += oper;
-	return expression;
+    expression += oper;
+    return expression;
 }
 
-/*partï¼šéšæœºç”Ÿæˆä¸€ä¸ªæ“ä½œæ•°ã€æˆ–ä¸€ä¸ªå½¢å¦‚ï¼ˆa+bï¼‰çš„éƒ¨åˆ†ï¼Œå¹¶è¿”å›ã€‚è¿”å›å€¼æ˜¯stringç±»å‹ã€‚*/
+/*part£ºËæ»úÉú³ÉÒ»¸ö²Ù×÷Êı¡¢»òÒ»¸öĞÎÈç£¨a+b£©µÄ²¿·Ö£¬²¢·µ»Ø¡£·µ»ØÖµÊÇstringÀàĞÍ¡£*/
 string Expression::RandomPart()
 {
-	int randChoice;/*å¦‚æœä¸º0ï¼Œpartä¸ºä¸€ä¸ªæ•°ï¼›å¦‚æœä¸º1ï¼Œpartä¸ºå½¢å¦‚ï¼ˆa+bï¼‰çš„å¼å­*/
-	srand(RandomeSeed());
-	randChoice = rand() % 2;
+    int randChoice;/*Èç¹ûÎª0£¬partÎªÒ»¸öÊı£»Èç¹ûÎª1£¬partÎªĞÎÈç£¨a+b£©µÄÊ½×Ó*/
+    srand(RandomeSeed());
+    randChoice = rand() % 2;
 
-	string part;
+    string part;
 
-	if (randChoice == 0)
-	{
-		int randNum;
-		randNum = RandomNum();
-		if (randNum == 10)
-		{
-			part += "10";
-		}
-		else
-		{
-			part += (char)(randNum + 48);/*è¿™é‡Œç”¨çš„æ˜¯stringç±»æ„é€ å‡½æ•°ï¼šstring(char c);*/
-		}
-	}
+    if (randChoice == 0)
+    {
+        int randNum;
+        randNum = RandomNum();
+        if (randNum == 10)
+        {
+            part += "10";
+        }
+        else
+        {
+            part += (char)(randNum + 48);/*ÕâÀïÓÃµÄÊÇstringÀà¹¹Ôìº¯Êı£ºstring(char c);*/
+        }
+    }
 
-	else if (randChoice == 1)
-	{
-		int randNum1;
-		randNum1 = RandomNum();
+    else if (randChoice == 1)
+    {
+        int randNum1;
+        randNum1 = RandomNum();
 
-		part += "(";
-		if (randNum1 == 10)
-		{
-			part += "10";
-		}
-		else
-		{
-			part += (char)(randNum1 + 48);
-		}
+        part += "(";
+        if (randNum1 == 10)
+        {
+            part += "10";
+        }
+        else
+        {
+            part += (char)(randNum1 + 48);
+        }
 
-		char oper = RandomOperator();
-		part += oper;
+        char oper = RandomOperator();
+        part += oper;
 
-		int randNum2;
-		randNum2 = RandomNum();
+        int randNum2;
+        randNum2 = RandomNum();
 
-		if (oper == '/') //å¦‚æœå‡ºç°äº†è§¦å‘ï¼Œè¦ç¡®ä¿ç¬¬äºŒä¸ªæ•°ä¸ä¸º0
-		{
-			while (randNum2 == 0)
-				randNum2 = RandomNum();
-		}
+        if (oper == '/') //Èç¹û³öÏÖÁË³ı·¨£¬ÒªÈ·±£µÚ¶ş¸öÊı²»Îª0
+        {
+            while (randNum2 == 0)
+                randNum2 = RandomNum();
+        }
 
-		if (randNum2 == 10)
-		{
-			part += "10";
-		}
-		else
-		{
-			part += (char)(randNum2 + 48);
-		}
+        if (randNum2 == 10)
+        {
+            part += "10";
+        }
+        else
+        {
+            part += (char)(randNum2 + 48);
+        }
 
-		part += ")";
-	}
+        part += ")";
+    }
 
-	return part;
+    return part;
 }
 
-/*å‚æ•°æ˜¯ä¸€ä¸ªstringç±»å‹ï¼Œä»£è¡¨ä¸€ä¸ªpartï¼Œä½œç”¨æ˜¯å°†è¿™ä¸ªpartè¿æ¥åˆ°ç§æœ‰æˆå‘˜expressionåé¢*/
+/*²ÎÊıÊÇÒ»¸östringÀàĞÍ£¬´ú±íÒ»¸öpart£¬×÷ÓÃÊÇ½«Õâ¸öpartÁ¬½Óµ½Ë½ÓĞ³ÉÔ±expressionºóÃæ*/
 string & Expression::AddPart(const string & part)
 {
-	expression += part;
-	return expression;
+    expression += part;
+    return expression;
 }
 
-/*å‚æ•°æ˜¯ä¸€ä¸ªstringç±»å‹ï¼Œä»£è¡¨ä¸€ä¸ªpartï¼Œè¿”å›å€¼æ˜¯è¿™ä¸ªpartçš„è®¡ç®—å€¼*/
+/*²ÎÊıÊÇÒ»¸östringÀàĞÍ£¬´ú±íÒ»¸öpart£¬·µ»ØÖµÊÇÕâ¸öpartµÄ¼ÆËãÖµ*/
 int Expression::PartValue(const string & part)
 {
-	int val = FALSE;
-	char oper;
-	int num1;
-	int num2;
+    int val = FALSE;
+    char oper;
+    int num1;
+    int num2;
 
-	//è¦é˜²æ­¢(7*1)+(5-6)*(9*8)/10+9
-	if (part[0] == '(')//partæ˜¯å½¢å¦‚ï¼ˆa+bï¼‰çš„  ä½†æœ‰å¯èƒ½å‡ºç°(10+5) (5+10) (10+10)
-	{
-		if (part.length() == 7) //å½¢å¦‚ (10+10)
-		{
-			oper = part[3];
-			num1 = num2 = 10;
-		}
-		else if (part.length() == 6) //å½¢å¦‚ (10+a)
-		{
-			if (part[1] == '1'&&part[2] == '0')//å½¢å¦‚ (10+a)
-			{
-				num1 = 10;
-				oper = part[3];
-				num2 = part[4] - '0';
-			}
-			else //æˆ–(a+10)
-			{
-				num1 = part[1] - '0';
-				oper = part[2];
-				num2 = 10;
-			}
-		}
-		else //å½¢å¦‚ (a+b)
-		{
-			oper = part[2];
-			num1 = part[1] - '0';
-			num2 = part[3] - '0';
-		}
-		
-		switch (oper)
-		{
-		case'+':
-			val = num1 + num2;
-			break;
-		case'-':
-			val = num1 - num2;
-			break;
-		case'*':
-			val = num1 * num2;
-			break;
-		case'/':
-			//å¦‚æœå‡ºç°é™¤æ³•ï¼Œä¸¤ç§æƒ…å†µè¦è¿”å›FLASEã€‚ç¬¬ä¸€ä¸ªï¼šé™¤æ•°ä¸º0ï¼Œç¬¬äºŒä¸ªï¼šä¸èƒ½æ•´é™¤
-			if (num1%num2 != 0 || num2 == 0)
-			{
-				return FALSE;
-			}
-			else
-			{
-				val = num1 / num2;
-			}
-		default:
-			break;
-		}
-	}
+    //Òª·ÀÖ¹(7*1)+(5-6)*(9*8)/10+9
+    if (part[0] == '(')//partÊÇĞÎÈç£¨a+b£©µÄ  µ«ÓĞ¿ÉÄÜ³öÏÖ(10+5) (5+10) (10+10)
+    {
+        if (part.length() == 7) //ĞÎÈç (10+10)
+        {
+            oper = part[3];
+            num1 = num2 = 10;
+        }
+        else if (part.length() == 6) //ĞÎÈç (10+a)
+        {
+            if (part[1] == '1'&&part[2] == '0')//ĞÎÈç (10+a)
+            {
+                num1 = 10;
+                oper = part[3];
+                num2 = part[4] - '0';//AscllÂë×Ö·û×ª»»intÊıÖµ 
+            }
+            else //»ò(a+10)
+            {
+                num1 = part[1] - '0';
+                oper = part[2];
+                num2 = 10;
+            }
+        }
+        else //ĞÎÈç (a+b)
+        {
+            oper = part[2];
+            num1 = part[1] - '0';
+            num2 = part[3] - '0';
+        }
+        
+        switch (oper)
+        {
+        case'+':
+            val = num1 + num2;
+            break;
+        case'-':
+            val = num1 - num2;
+            break;
+        case'*':
+            val = num1 * num2;
+            break;
+        case'/':
+            //Èç¹û³öÏÖ³ı·¨£¬Á½ÖÖÇé¿öÒª·µ»ØFLASE¡£µÚÒ»¸ö£º³ıÊıÎª0£¬µÚ¶ş¸ö£º²»ÄÜÕû³ı
+            if (num1%num2 != 0 || num2 == 0)
+            {
+                return FALSE;
+            }
+            else
+            {
+                val = num1 / num2;
+            }
+        default:
+            break;
+        }
+    }
 
-	else //partæ˜¯ä¸€ä¸ªæ•°
-	{
-		if (part[0] == '1'&&part[1]=='0')
-		{
-			val = 10;
-		}
-		else
-		{
-			val = part[0] - '0';
-		}
-	}
+    else //partÊÇÒ»¸öÊı
+    {
+        if (part[0] == '1'&&part[1]=='0')
+        {
+            val = 10;
+        }
+        else
+        {
+            val = part[0] - '0';
+        }
+    }
 
-	return val;
+    return val;
 }
 
-/*éšæœºç”Ÿæˆä¸€ä¸ªä¸­ç¼€è¡¨è¾¾å¼*/
+/*Ëæ»úÉú³ÉÒ»¸öÖĞ×º±í´ïÊ½*/
 Expression Expression::CreateInfixExpression()
 {
-	srand(RandomeSeed());
-	int rank;
-	rank = rand() % 3 + 2; //rankä¸º2~4ï¼Œæ„æ€æ˜¯é•¿åº¦å¯å˜çš„ä¸­ç¼€å¼å­
+    srand(RandomeSeed());
+    int rank;
+    rank = rand() % 3 + 2; //rankÎª2~4£¬ÒâË¼ÊÇ³¤¶È¿É±äµÄÖĞ×ºÊ½×Ó
 
-	int val1, val2;//val1ä»£è¡¨å‰é¢çš„ï¼Œval2ä»£è¡¨åé¢çš„ï¼Œé˜²æ­¢å‡ºç°å‰é¢é™¤ä»¥åé¢ä¸æ•´é™¤
+    int val1, val2;//val1´ú±íÇ°ÃæµÄ£¬val2´ú±íºóÃæµÄ£¬·ÀÖ¹³öÏÖÇ°Ãæ³ıÒÔºóÃæ²»Õû³ı
 
-	string randPart = RandomPart();
-	val1 = PartValue(randPart);
-	while (val1 == FALSE)//é˜²æ­¢äº†ï¼ˆ7/5ï¼‰   
-	{
-		randPart = RandomPart();
-		val1 = PartValue(randPart);
-	}
-	AddPart(randPart);
-	
-	int i;
-	for (i = 0; i < rank; i++) 
-	{
-		char oper;
-		oper = RandomOperator();
-		AddOperator(oper);
+    string randPart = RandomPart();
+    val1 = PartValue(randPart);
+    while (val1 == FALSE)//·ÀÖ¹ÁË£¨7/5£©   
+    {
+        randPart = RandomPart();
+        val1 = PartValue(randPart);
+    }
+    AddPart(randPart);
+    
+    int i;
+    for (i = 0; i < rank; i++) 
+    {
+        char oper;
+        oper = RandomOperator();
+        AddOperator(oper);
 
-		randPart = RandomPart();
-		val2 = PartValue(randPart);
-		if (oper == '/')	//å¦‚æœå‡ºç°äº†é™¤å·ï¼Œé‚£è¦ç¡®ä¿é™¤æ•°ä¸ä¸ºé›¶
-		{
-			while (val2 == 0 || val1%val2 != 0)
-			{
-				randPart = RandomPart();
-				val2 = PartValue(randPart);
-			}
-		}
-		else
-		{
-			while (val2 == FALSE)
-			{
-				randPart = RandomPart();
-				val2 = PartValue(randPart);
-			}
-		}
+        randPart = RandomPart();
+        val2 = PartValue(randPart);
+        if (oper == '/')    //Èç¹û³öÏÖÁË³ıºÅ£¬ÄÇÒªÈ·±£³ıÊı²»ÎªÁã
+        {
+            while (val2 == 0 || val1%val2 != 0)
+            {
+                randPart = RandomPart();
+                val2 = PartValue(randPart);
+            }
+        }
+        else
+        {
+            while (val2 == FALSE)
+            {
+                randPart = RandomPart();
+                val2 = PartValue(randPart);
+            }
+        }
 
-		//æ‰©å±•val1 = val2;
-		if (oper == '/' )//  è¦é˜²æ­¢ï¼š 8/(7-3)/4
-		{
-			val1 = val1 / val2;
-		}
-		else if (oper == '*')
-		{
-			val1 = val1 * val2;
-		}
-		else   
-		{
-			val1 = val2;
-		}
-		AddPart(randPart);
-	}
-	return *this;
+        //À©Õ¹val1 = val2;
+        if (oper == '/' )//  Òª·ÀÖ¹£º 8/(7-3)/4
+        {
+            val1 = val1 / val2;
+        }
+        else if (oper == '*')
+        {
+            val1 = val1 * val2;
+        }
+        else   
+        {
+            val1 = val2;
+        }
+        AddPart(randPart);
+    }
+    return *this;
 }
 
-/*å‚æ•°æ˜¯ä¸€ä¸ªstringç±»å‹ï¼Œä»£è¡¨ä¸€ä¸ªä¸­ç¼€è¡¨è¾¾å¼ï¼Œè¿”å›å€¼æ˜¯stringç±»å‹ï¼Œæ˜¯å…¶å¯¹åº”çš„é€†æ³¢å…°å¼*/
+/*²ÎÊıÊÇÒ»¸östringÀàĞÍ£¬´ú±íÒ»¸öÖĞ×º±í´ïÊ½£¬·µ»ØÖµÊÇstringÀàĞÍ£¬ÊÇÆä¶ÔÓ¦µÄÄæ²¨À¼Ê½*/
 Expression Expression::ReversePolishNotation()
 {
-	Stack s1, s2;
+    Stack s1, s2;
 
-	int i;
-	char ch;
+    int i;
+    char ch;
 
-	int size = expression.length();
-	for (i = 0; i < size; i++)
-	{
-		switch (expression[i])
-		{
-		case'(':
-			s1.push(expression[i]);
-			break;
-		case')':
-			while (s1.top() != '(')
-			{
-				ch = s1.top();
-				s1.pop();
-				s2.push(ch);
-			}
-			ch = s1.top();
-			s1.pop();
-			break;
+    int size = expression.length();
+    for (i = 0; i < size; i++)
+    {
+        switch (expression[i])
+        {
+        case'(':
+            s1.push(expression[i]);
+            break;
+        case')':
+            while (s1.top() != '(')
+            {
+                ch = s1.top();
+                s1.pop();
+                s2.push(ch);
+            }
+            ch = s1.top();
+            s1.pop();
+            break;
 
-		case'+':
-		case'-':
-			for (ch = s1.top(); !s1.empty(); ch = s1.top())
-			{
-				if (ch == '(')
-				{
-					break;
-				}
-				else
-				{
-					ch = s1.top();
-					s1.pop();
-					s2.push(ch);
-				}
-			}
-			s1.push(expression[i]);
-			break;
+        case'+':
+        case'-':
+            for (ch = s1.top(); !s1.empty(); ch = s1.top())
+            {
+                if (ch == '(')
+                {
+                    break;
+                }
+                else
+                {
+                    ch = s1.top();
+                    s1.pop();
+                    s2.push(ch);
+                }
+            }
+            s1.push(expression[i]);
+            break;
 
-		case'*':
-		case'/':
-			for (ch = s1.top(); !s1.empty() && ch != '+'&&ch != '-'; ch = s1.top())
-			{
-				if (ch == '(')
-					break;
-				else
-				{
-					ch = s1.top();
-					s1.pop();
-					s2.push(ch);
-				}
-			}
-			s1.push(expression[i]);
-			break;
+        case'*':
+        case'/':
+            for (ch = s1.top(); !s1.empty() && ch != '+'&&ch != '-'; ch = s1.top())
+            {
+                if (ch == '(')
+                    break;
+                else
+                {
+                    ch = s1.top();
+                    s1.pop();
+                    s2.push(ch);
+                }
+            }
+            s1.push(expression[i]);
+            break;
 
-		case'1':
-			if (expression[i + 1] == '0')//è¯´æ˜æ˜¯æ•°å­—å;
-			{
-				//åœ¨stringä¸­ï¼Œç”¨'#'ä»£è¡¨æ•°å€¼10ã€‚åœ¨è®¡ç®—å‡½æ•°ä¸­ï¼Œé‡åˆ°#å°±ç”¨10å¸¦å…¥è®¡ç®—
-				s2.push('#');
-				i++;
-				break;
-			}
-		default://å…¶ä»–æ•°å­—
-			s2.push(expression[i]);
-		}
-	}
-	while (!s1.empty())
-	{
-		ch = s1.top();
-		s1.pop();
-		s2.push(ch);
-	}
+        case'1':
+            if (expression[i + 1] == '0')//ËµÃ÷ÊÇÊı×ÖÊ®;
+            {
+                //ÔÚstringÖĞ£¬ÓÃ'#'´ú±íÊıÖµ10¡£ÔÚ¼ÆËãº¯ÊıÖĞ£¬Óöµ½#¾ÍÓÃ10´øÈë¼ÆËã
+                s2.push('#');
+                i++;
+                break;
+            }
+        default://ÆäËûÊı×Ö
+            s2.push(expression[i]);
+        }
+    }
+    while (!s1.empty())
+    {
+        ch = s1.top();
+        s1.pop();
+        s2.push(ch);
+    }
 
-	string temp;
-	for (; !s2.empty(); )
-	{
-		ch = s2.top();
-		s2.pop();
-		temp += ch;
-	}
-	int j = temp.length() - 1;
-	for (; j >= 0; j--)
-	{
-		reversePolishNotation += temp[j];
-	}
-	return *this;
+    string temp;
+    for (; !s2.empty(); )
+    {
+        ch = s2.top();
+        s2.pop();
+        temp += ch;
+    }
+    int j = temp.length() - 1;
+    for (; j >= 0; j--)
+    {
+        reversePolishNotation += temp[j];
+    }
+    return *this;
 }
 
-/*æ ¹æ®é€†æ³¢å…°å¼ï¼Œæ±‚å‡ºè¡¨è¾¾å¼çš„å€¼ã€‚ç»“æœå¦‚æœæ˜¯æ•´æ•°ï¼Œåˆ™è¿”å›æ•´æ•°ã€‚å¦‚æœä¸æ˜¯æ•´æ•°ï¼Œè¿”å›FALSEã€‚*/
+/*¸ù¾İÄæ²¨À¼Ê½£¬Çó³ö±í´ïÊ½µÄÖµ¡£½á¹ûÈç¹ûÊÇÕûÊı£¬Ôò·µ»ØÕûÊı¡£Èç¹û²»ÊÇÕûÊı£¬·µ»ØFALSE¡£*/
 int Expression::ExpressionValue()
 {
-	Stack s;
-	int size = reversePolishNotation.length();
+    Stack s;
+    int size = reversePolishNotation.length();
 
-	int num1, num2;//å› ä¸ºæœ‰ç”¨#ä»£è¡¨10ï¼Œå°±å…ˆç”¨intå­˜
-	int i;
+    int num1, num2;//ÒòÎªÓĞÓÃ#´ú±í10£¬¾ÍÏÈÓÃint´æ
+    int i;
 
-	for (i = 0; i < size; i++)
-	{
-		switch (reversePolishNotation[i])
-		{
-		case'+':
-			num1 = s.top();
-			s.pop();
-			num2 = s.top();
-			s.pop();
-			s.push(num1 + num2);
-			break;
+    for (i = 0; i < size; i++)
+    {
+        switch (reversePolishNotation[i])
+        {
+        case'+':
+            num1 = s.top();
+            s.pop();
+            num2 = s.top();
+            s.pop();
+            s.push(num1 + num2);
+            break;
 
-		case'-':
-			num1 = s.top();
-			s.pop();
-			num2 = s.top();
-			s.pop();
-			s.push(num2 - num1);
-			break;
+        case'-':
+            num1 = s.top();
+            s.pop();
+            num2 = s.top();
+            s.pop();
+            s.push(num2 - num1);
+            break;
 
-		case'*':
-			num1 = s.top();
-			s.pop();
-			num2 = s.top();
-			s.pop();
-			s.push(num1 * num2);
-			break;
+        case'*':
+            num1 = s.top();
+            s.pop();
+            num2 = s.top();
+            s.pop();
+            s.push(num1 * num2);
+            break;
 
-		case'/':
-			num1 = s.top();
-			s.pop();
-			num2 = s.top();
-			s.pop();
-			//åªæœ‰åšé™¤æ³•æ—¶å¯èƒ½å‡ºç°ç­”æ¡ˆä¸ºéæ•´æ•°çš„æƒ…å†µ
-			if (num2%num1 == 0)
-			{
-				s.push(num2 / num1);
-			}
-			else
-			{
-				return FALSE;
-			}
-			break;
+        case'/':
+            num1 = s.top();
+            s.pop();
+            num2 = s.top();
+            s.pop();
+            //Ö»ÓĞ×ö³ı·¨Ê±¿ÉÄÜ³öÏÖ´ğ°¸Îª·ÇÕûÊıµÄÇé¿ö
+            if (num2%num1 == 0)
+            {
+                s.push(num2 / num1);
+            }
+            else
+            {
+                return FALSE;
+            }
+            break;
 
-		case'#'://æ•°å€¼10
-			s.push(10);
-			break;
+        case'#'://ÊıÖµ10
+            s.push(10);
+            break;
 
-		default://å…¶ä»–æ•°å€¼
-			s.push(reversePolishNotation[i] - '0');
-			break;
-		}
-	}
-	value = s.top();
-	return value;
+        default://ÆäËûÊıÖµ
+            s.push(reversePolishNotation[i] - '0');
+            break;
+        }
+    }
+    value = s.top();
+    return value;
 }
 
-/*é‡è½½è¾“å‡ºè¿ç®—ç¬¦*/
+ /*ÖØÔØÊä³öÔËËã·û*/
 ostream & operator<<(ostream & os, const Expression & e)
 {
-	os << e.expression;
-	return os;
+    os << e.expression;
+    return os;
 }
 
-/*ä»¥ä¸‹æ˜¯éæˆå‘˜å‡½æ•°*/
 
-/*è¾“å…¥æ£€æµ‹*/
-int GetInt(void)
+/*ÒÔÏÂÊÇ·Ç³ÉÔ±º¯Êı*/
+/*ÓÃÓÚ²âÊÔº¯Êıfunc1¡¢func2¡¢func3ºÍÊäÈëº¯Êı*/
+
+
+ /*ÖĞÓ¢ÎÄÓïÑÔÑ¡Ôñ*/ 
+string LanguageChoice()
+{
+	string choice,input;
+	cin>>input;
+	if(input == "Chi")
+	{
+		choice = "Chi";
+	}
+	else if(input == "Eng")
+	{
+		choice = "Eng";
+	}
+	else
+	{
+		cout<<"ÄúÊäÈëµÄÓïÑÔÀàĞÍÔİÊ±²»Ö§³Ö£¬ÇëÖØĞÂÊäÈë  /  The language you choose is undesirable , please input again : "<<endl;
+		LanguageChoice(); 
+	}
+	return choice;
+}
+
+
+/*ÏÂÃæÎªÖĞÓ¢ÎÄµÄÊäÈë¼ì²â*/ 
+int ChineseGetInt()
 {
 	int input;
-	char ch;
-	cout << "è¯·è¾“å…¥ä¸€ä¸ªèŒƒå›´åœ¨1~100ä¹‹é—´çš„æ­£æ•´æ•°ï¼Œä»£è¡¨ä½ æƒ³åšçš„é¢˜ç›®çš„æ•°é‡ï¼ˆ0ä»£è¡¨é€€å‡ºï¼‰ï¼š";
-	while (scanf_s("%d", &input) != 1)//è¾“å…¥çš„ä¸æ˜¯%d
-	{
-		cout << "ä½ çš„è¾“å…¥ï¼š";
-		while ((ch = getchar()) != '\n')
-			putchar(ch);//å¦‚æœç”¨æˆ·è¾“å…¥äº†å­—ç¬¦ä¸²ï¼Œå°±æ˜¾ç¤ºè¿™ä¸ªå­—ç¬¦ä¸²ï¼Œå¹¶ä¸”åœ¨æ˜¾ç¤ºâ€œä¸ç¬¦åˆè¦æ±‚â€
-		cout << " ä¸ç¬¦åˆè¦æ±‚\n";
-		cout << "è¯·è¾“å…¥ä¸€ä¸ªèŒƒå›´åœ¨1~100ä¹‹é—´çš„æ­£æ•´æ•°ï¼ˆ0ä»£è¡¨é€€å‡ºï¼‰ï¼š";
-	}
-	while (input <= 0 || input > 100)
-	{
-		if (input < 0)
-		{
-			cout << "ä½ è¾“å…¥çš„æ•°å­—å¤ªå°ã€‚ï¼ˆä½ è¿˜æƒ³ä¸æƒ³åšé¢˜ï¼Ÿï¼‰" << endl;
-			input = GetInt();
-		}
-		if (input > 100)
-		{
-			cout << "ä½ è¾“å…¥çš„æ•°å­—å¤ªå¤§ã€‚ï¼ˆæœ‰å¿…è¦åšé‚£ä¹ˆå¤šå—ï¼Ÿï¼‰" << endl;
-			input = GetInt();
-		}
-		if (input == 0)
-		{
-			cout << "æ‹œæ‹œ!~" << endl;
-			return 0;
-		}
-	}
-	return input;
+    char ch;
+    cout << "ÇëÊäÈëÒ»¸ö·¶Î§ÔÚ1~100Ö®¼äµÄÕıÕûÊı£¬´ú±íÄãÏë×öµÄÌâÄ¿µÄÊıÁ¿£¨0´ú±íÍË³ö£©£º";
+    while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
+    {
+        cout << "ÄãµÄÊäÈë£º";
+        while ((ch = getchar()) != '\n')
+            putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
+        cout << " ²»·ûºÏÒªÇó\n";
+        cout << "ÇëÊäÈëÒ»¸ö·¶Î§ÔÚ1~100Ö®¼äµÄÕıÕûÊı£¨0´ú±íÍË³ö£©£º";
+    }
+    while (input <= 0 || input > 100)
+    {
+        if (input < 0)
+        {
+            cout << "ÄãÊäÈëµÄÊı×ÖÌ«Ğ¡¡££¨Äã»¹Ïë²»Ïë×öÌâ£¿£©" << endl;
+            input = ChineseGetInt();
+        }
+        if (input > 100)
+        {
+            cout << "ÄãÊäÈëµÄÊı×ÖÌ«´ó¡££¨ÓĞ±ØÒª×öÄÇÃ´¶àÂğ£¿£©" << endl;
+            input = ChineseGetInt();
+        }
+        if (input == 0)
+        {
+            cout << "°İ°İ!~" << endl;
+            return 0;
+        }
+    }
+    return input;
 }
 
-/*ç”¨äºæµ‹è¯•å‡½æ•°func1ã€func2ã€func3å’Œè¾“å…¥å‡½æ•°*/
+
+int EnglishGetInt()
+{
+	int input;
+    char ch;
+    cout << "The numble of questions£ºPlease input a numble between 1 and 100 : ";
+    while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
+    {
+        cout << "Your input£º";
+        while ((ch = getchar()) != '\n')
+            putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
+        cout << " Your numble is undesirable.\n";
+        cout << "Please input a positive numble between 1 and 100 £¨0 means exit£©£º";
+    }
+    while (input <= 0 || input > 100)
+    {
+        if (input < 0)
+        {
+            cout << "The numble you input is too small.£¨Do you want to exit£¿£©" << endl;
+            input = EnglishGetInt();
+        }
+        if (input > 100)
+        {
+            cout << "The numble you input is too big.£¨Too many questions may make you boring .£©" << endl;
+            input = EnglishGetInt();
+        }
+        if (input == 0)
+        {
+            cout << "Goodbye!~" << endl;
+            return 0;
+        }
+    }
+    return input;
+}
+
+/*ÏÂÃæÎªÖĞÓ¢ÎÄµÄ×öÌâÖ¸Ê¾*/ 
+int ChineseInstruction(int val, int true_Numble)
+{
+	    cout << "\tÇëÊäÈëÄãµÄ´ğ°¸£º";
+	    int answer;
+        cin >> answer;
+
+        if (answer == val)
+        {
+            cout << "¹§Ï²Äã£¬»Ø´ğÕıÈ·£¡" << endl << endl;
+            true_Numble++;
+        }
+        else
+        {
+            cout << "´íÎóÕıÈ·£¡ÕıÈ·´ğ°¸ÊÇ£º" << val << endl << endl;
+        }
+        return true_Numble;
+}
+
+
+int EnglishInstruction(int val, int true_Numble)
+{
+	    cout << "\tPlease input your answer £º";
+	    int answer;
+        cin >> answer;
+
+        if (answer == val)
+        {
+            cout << "Congratulations on a ringht answer £¡" << endl << endl;
+            true_Numble++;
+        }
+        else
+        {
+            cout << "Wrong answer ! The right answer is £º" << val << endl << endl;
+        }
+        return true_Numble;
+}
+
 int main()
 {
-	int i;
-	int answer;//ç”¨æˆ·è¾“å…¥
-	int versionchoice;//1çš„è¯ ä¸­æ–‡ 2 è‹±æ–‡
-					  /*
-					  if(v==1)
-					  ChineseDisplay();
-					  else if(v==2)
-					  EnglishDisplay();
-					  */
+    int i;
+    string versionChoice;//1µÄ»° ÖĞÎÄ 2 Ó¢ÎÄ
+    cout<< "ÄúÏëÊ¹ÓÃÊ²Ã´ÓïÑÔ£¿  /  Which language do you want to use? "<<endl; 
+    cout<< "ÖĞÎÄÇëÊäÈë£ºChi  /  Chinese Please input : Chi "<<endl;
+    cout<< "Ó¢ÎÄÇëÊäÈë£ºEng  /  English Please input : Eng "<<endl;
+    versionChoice = LanguageChoice();
 
-	int n;
-	n = GetInt();
-	/*CreateProblemsï¼Œè¿”å›å€¼æ˜¯ç­”æ¡ˆå’¯ï¼Œint answer = æ¥å—*/
-	/*ä¸‹é¢çš„éœ€è¦å°è£…*/
-	int val;//æ­£ç¡®ç­”æ¡ˆ
-	for (i = 1; i <= n; i++)
-	{
-		Expression expression;
-		expression.CreateInfixExpression();
-		expression.ReversePolishNotation();
-		val = expression.ExpressionValue();
-
-		while (val == FALSE)
-		{
-			Expression expression;
-
-			expression.CreateInfixExpression();
-			expression.ReversePolishNotation();
-			val = expression.ExpressionValue();
+    int n;
+    if(versionChoice == "Chi")
+        {
+        	n = ChineseGetInt();
 		}
-		//ç¡®ä¿ä¸ä¼šå‡ºç°ç­”æ¡ˆä¸ºéæ•´æ•°çš„é¢˜ç›®
-		cout << "ç¬¬" << i << "é¢˜:" << expression << endl;
-		/*å°è£…ç»“æŸ*/
+	else if(versionChoice == "Eng")
+		{
+			n = EnglishGetInt();
+		}
+    
+    
+    int val, true_Numble = 0, wrong_Numble;     //ÕıÈ·´ğ°¸ÒÔ¼°ÕıÈ·ÌâÄ¿ÊıÁ¿ 
+	double accuracy;     
+    for (i = 1; i <= n; i++)
+    {
+       
+    //    val=Question();      //×¼±¸µÚ¼¸ÌâÕâ¸öÒ²·ÅÈëÖĞÓ¢ÎÄÇĞ»»Àï£¬µ«ÊÇº¯Êı·µ»ØÖµÖ»ÓĞÒ»¸ö²»·½±ã¡£ 
+    //    if(versionChoice=="Chi")
+    //    {            
+	//		ChineseInsruction(val);
+	//	}
 
-		/*ä¸‹é¢æ˜¯Judge()*/
+    //    else if(versionChoice=="Eng")
+    //    {
+    //    	EnglishInstruction(val);
+	//	}
+	    Expression expression;
+        expression.CreateInfixExpression();
+        expression.ReversePolishNotation();
+        val = expression.ExpressionValue();
+
+        while (val == FALSE)
+        {
+            Expression expression;
+
+            expression.CreateInfixExpression();
+            expression.ReversePolishNotation();
+            val = expression.ExpressionValue();
+        }
+		//È·±£²»»á³öÏÖ´ğ°¸Îª·ÇÕûÊıµÄÌâÄ¿
+        
+        cout << "µÚ" << i << "Ìâ:" << expression << endl;   //×¼±¸µÚ¼¸ÌâÕâ¸öÒ²·ÅÈëÖĞÓ¢ÎÄÇĞ»»Àï£¬µ«ÊÇº¯Êı·µ»ØÖµÖ»ÓĞÒ»¸ö²»·½±ã¡£
+        
+        /*ÏÂÃæÊÇJudgeµÄ¹ı³Ì*/
+        if(versionChoice == "Chi")
+        {
+        	true_Numble = ChineseInstruction(val,true_Numble); 
+		}
+		else if(versionChoice == "Eng")
+		{
+			true_Numble = EnglishInstruction(val,true_Numble);
+		}
 		
-		cout << "\tè¯·è¾“å…¥ä½ çš„ç­”æ¡ˆï¼š";
-		cin >> answer;
-
-		if (answer == val)
-		{
-			cout << "æ­å–œä½ ï¼Œå›ç­”æ­£ç¡®ï¼" << endl << endl;
-		}
-		else
-		{
-			cout << "é”™è¯¯æ­£ç¡®ï¼æ­£ç¡®ç­”æ¡ˆæ˜¯ï¼š" << val << endl << endl;
-		}
-		expression.~Expression();
-	}
-	cout << "\nç»“æœç»Ÿè®¡ï¼šæ‚¨åšå¯¹äº†XXé¢˜ï¼Œåšé”™äº†XXé¢˜ï¼Œæ­£ç¡®ç‡XX" << endl;
-	cout << "æ‹œæ‹œï¼~" << endl;
-	return 0;
+        expression.~Expression();
+    }
+    wrong_Numble = n - true_Numble;
+    accuracy = true_Numble/n;
+    cout << "\n½á¹ûÍ³¼Æ£ºÄú×ö¶ÔÁË" << true_Numble << "Ìâ£¬×ö´íÁË" << wrong_Numble << "Ìâ£¬ÕıÈ·ÂÊ:" << accuracy << endl;
+    cout << "°İ°İ£¡~" << endl;
+    return 0;
 }
