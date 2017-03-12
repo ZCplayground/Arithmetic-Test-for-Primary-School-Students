@@ -1,0 +1,10 @@
+﻿  main.cpp
+d:\github\arithmetic test for primary school students\四则运算\expression.h(17): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\expression.h(17): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\expression.h(23): warning C4244: “=”: 从“__int64”转换到“unsigned long”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\expression.h(319): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\expression.h(398): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\expression.h(410): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\github\arithmetic test for primary school students\四则运算\languageresource.h(8): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+  四则运算.vcxproj -> D:\github\Arithmetic Test for Primary School Students\x64\Debug\四则运算.exe
+  四则运算.vcxproj -> D:\github\Arithmetic Test for Primary School Students\x64\Debug\四则运算.pdb (Partial PDB)

@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\a250151700\desktop\四则运算\四则运算\expression.h(23): warning C4244: “=”: 从“__int64”转换到“unsigned long”，可能丢失数据
+c:\users\a250151700\desktop\四则运算\四则运算\languageresource.h(8): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+  四则运算.vcxproj -> C:\Users\a250151700\Desktop\四则运算\Debug\四则运算.exe
+  四则运算.vcxproj -> C:\Users\a250151700\Desktop\四则运算\Debug\四则运算.pdb (Partial PDB)
