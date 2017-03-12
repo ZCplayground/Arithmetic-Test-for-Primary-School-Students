@@ -139,7 +139,11 @@ string Expression::RandomPart()
 		int randNum2;
 		randNum2 = RandomNum();
 
+<<<<<<< HEAD:å››åˆ™è¿ç®—/Expression.h
 		if (oper == '/') //Èç¹û³öÏÖÁË´¥·¢£¬ÒªÈ·±£µÚ¶þ¸öÊý²»Îª0
+=======
+		if (oper == '/') //å¦‚æžœå‡ºçŽ°äº†é™¤æ³•ï¼Œè¦ç¡®ä¿ç¬¬äºŒä¸ªæ•°ä¸ä¸º0
+>>>>>>> be382e278b062a6728f9be658f1f7a9815af5ce8:Expression.h
 		{
 			while (randNum2 == 0)
 				randNum2 = RandomNum();
@@ -308,7 +312,11 @@ Expression Expression::CreateInfixExpression()
 	return *this;
 }
 
+<<<<<<< HEAD:å››åˆ™è¿ç®—/Expression.h
 /*¸ù¾ÝÀà³ÉÔ±expressionµÄÖÐ×º±í´ïÊ½£¬Éú³ÉÆä¶ÔÓ¦µÄÄæ²¨À¼Ê½£¬·Åµ½³ÉÔ±reversePolishNotationÖÐ*/
+=======
+/*ä¿®æ”¹ç§æœ‰ç±»æˆå‘˜expressionï¼Œä¿®æ”¹æˆå…¶å¯¹åº”çš„é€†æ³¢å…°å¼*/
+>>>>>>> be382e278b062a6728f9be658f1f7a9815af5ce8:Expression.h
 Expression Expression::ReversePolishNotation()
 {
 	Stack s1, s2;
