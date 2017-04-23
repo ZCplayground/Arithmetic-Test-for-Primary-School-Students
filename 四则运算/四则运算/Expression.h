@@ -1,34 +1,34 @@
-ï»¿#pragma once
+#pragma once
 /*******************************************
-æ–‡ä»¶åï¼š Expression.h
-ä½œè€…ï¼šZC   æ—¥æœŸï¼š2017/02/15
-æè¿°: è¡¨è¾¾å¼ç±»ã€‚ç±»å£°æ˜ã€ç±»æ–¹æ³•éƒ¨åˆ†ï¼Œéšæœºç”Ÿæˆéƒ¨åˆ†
+ÎÄ¼şÃû£º Expression.h
+×÷Õß£ºZC   ÈÕÆÚ£º2017/02/15
+ÃèÊö: ±í´ïÊ½Àà¡£ÀàÉùÃ÷¡¢Àà·½·¨²¿·Ö£¬Ëæ»úÉú³É²¿·Ö
 *******************************************/
 #include "stack.h"
 #include<iostream>
 #include<string>
 #include<cstdlib>
 #include<ctime>
-#include<cctype>
+
 using namespace std;
 
-/*éšæœºç”Ÿæˆè¿ç®—ç¬¦ç›¸å…³ï¼Œå¯¹äºå°å­¦ç”Ÿï¼Œè¦å‡å°‘é™¤æ³•å‡ºç°çš„æ¦‚ç‡*/
+/*Ëæ»úÉú³ÉÔËËã·ûÏà¹Ø£¬¶ÔÓÚĞ¡Ñ§Éú£¬Òª¼õÉÙ³ı·¨³öÏÖµÄ¸ÅÂÊ*/
 char *rand_Oper_List = "+-*/+-*+*/-+*-+/*-+-*-+*/-+*-*+-*/+-*+*+-*-+*-+/*/+-/*-++-*/-*+-+*";
 const int operListLen = strlen(rand_Oper_List);
 
-/*éšæœºæ•°ã€éšæœºç§å­ç›¸å…³*/
-static unsigned int long seed = (unsigned int)time(NULL);/*ç”¨æ—¶é—´å®šä¹‰åˆå§‹ç§å­*/
-unsigned int RandomeSeed(void)/*æ¯æ¬¡éšæœºåè®©ç§å­å˜æˆä¸€ä¸ªæ–°çš„*/
+/*Ëæ»úÊı¡¢Ëæ»úÖÖ×ÓÏà¹Ø*/
+static unsigned int long seed = (unsigned int)time(NULL);/*ÓÃÊ±¼ä¶¨Òå³õÊ¼ÖÖ×Ó*/
+unsigned int RandomeSeed(void)/*Ã¿´ÎËæ»úºóÈÃÖÖ×Ó±ä³ÉÒ»¸öĞÂµÄ*/
 {
 	seed = seed * 11035152465 + 12345;
 	return (unsigned int)(seed / 65536) % 32768;
 }
-/*è§£é‡Šä¸‹ä¸ºä»€ä¹ˆã€‚å¦‚æœåªæœ‰æ—¶é—´ä½œä¸ºç§å­ï¼Œé‚£ä¹ˆå¦‚æœç¨‹åºåœ¨ä¸€ç§’ä¹‹å†…è·‘å®Œï¼Œä¼šå¯¼è‡´æ‰€æœ‰è®¡ç®—é¢˜éƒ½æ˜¯ä¸€æ ·çš„*/
+/*½âÊÍÏÂÎªÊ²Ã´¡£Èç¹ûÖ»ÓĞÊ±¼ä×÷ÎªÖÖ×Ó£¬ÄÇÃ´Èç¹û³ÌĞòÔÚÒ»ÃëÖ®ÄÚÅÜÍê£¬»áµ¼ÖÂËùÓĞ¼ÆËãÌâ¶¼ÊÇÒ»ÑùµÄ*/
 
-//åœ¨è¡¨è¾¾å¼çš„è®¡ç®—å€¼ä¸ç¬¦åˆè¦æ±‚æ—¶ï¼Œæ˜¯FALSE
+//ÔÚ±í´ïÊ½µÄ¼ÆËãÖµ²»·ûºÏÒªÇóÊ±£¬ÊÇFALSE
 #define FALSE -9999
 
-/*Expressionï¼Œè¡¨è¾¾å¼ç±»ã€‚ç±»å£°æ˜éƒ¨åˆ†: Expression.hã€‚*/
+/*Expression£¬±í´ïÊ½Àà¡£ÀàÉùÃ÷²¿·Ö: Expression.h¡£*/
 //#include "Expression.h"
 class Expression
 {
@@ -53,12 +53,12 @@ public:
 	Expression ReversePolishNotation();
 	int ExpressionValue();
 
-	friend ostream & operator<<(ostream & os, const Expression &e);//é‡è½½<<è¿ç®—ç¬¦
+	friend ostream & operator<<(ostream & os, const Expression &e);//ÖØÔØ<<ÔËËã·û
 };
 
-/*è¡¨è¾¾å¼ç±»ï¼Œç±»æ–¹æ³•éƒ¨åˆ† Expression.cpp*/
+/*±í´ïÊ½Àà£¬Àà·½·¨²¿·Ö Expression.cpp*/
 
-/*æ„é€ å‡½æ•°*/
+/*¹¹Ôìº¯Êı*/
 Expression::Expression()
 {
 	expression = "";
@@ -70,7 +70,7 @@ Expression::~Expression()
 {
 
 }
-/*éšæœºç”Ÿæˆä¸€ä¸ªæ•°å­—ï¼ŒèŒƒå›´0~10*/
+/*Ëæ»úÉú³ÉÒ»¸öÊı×Ö£¬·¶Î§0~10*/
 int Expression::RandomNum()
 {
 	srand(RandomeSeed());
@@ -79,7 +79,7 @@ int Expression::RandomNum()
 	return randNum;
 }
 
-/*éšæœºç”Ÿæˆä¸€ä¸ªæ“ä½œç¬¦å¹¶è¿”å›ï¼Œè¿”å›å€¼ç±»å‹char*/
+/*Ëæ»úÉú³ÉÒ»¸ö²Ù×÷·û²¢·µ»Ø£¬·µ»ØÖµÀàĞÍchar*/
 char Expression::RandomOperator()
 {
 	int randOperIndex;
@@ -88,17 +88,17 @@ char Expression::RandomOperator()
 	return rand_Oper_List[randOperIndex];
 }
 
-/*æŠŠæ“ä½œç¬¦operè¿æ¥åœ¨expressionå*/
+/*°Ñ²Ù×÷·ûoperÁ¬½ÓÔÚexpressionºó*/
 string & Expression::AddOperator(const char oper)
 {
 	expression += oper;
 	return expression;
 }
 
-/*partï¼šéšæœºç”Ÿæˆä¸€ä¸ªæ“ä½œæ•°ã€æˆ–ä¸€ä¸ªå½¢å¦‚ï¼ˆa+bï¼‰çš„éƒ¨åˆ†ï¼Œå¹¶è¿”å›ã€‚è¿”å›å€¼æ˜¯stringç±»å‹ã€‚*/
+/*part£ºËæ»úÉú³ÉÒ»¸ö²Ù×÷Êı¡¢»òÒ»¸öĞÎÈç£¨a+b£©µÄ²¿·Ö£¬²¢·µ»Ø¡£·µ»ØÖµÊÇstringÀàĞÍ¡£*/
 string Expression::RandomPart()
 {
-	int randChoice;/*å¦‚æœä¸º0ï¼Œpartä¸ºä¸€ä¸ªæ•°ï¼›å¦‚æœä¸º1ï¼Œpartä¸ºå½¢å¦‚ï¼ˆa+bï¼‰çš„å¼å­*/
+	int randChoice;/*Èç¹ûÎª0£¬partÎªÒ»¸öÊı£»Èç¹ûÎª1£¬partÎªĞÎÈç£¨a+b£©µÄÊ½×Ó*/
 	srand(RandomeSeed());
 	randChoice = rand() % 2;
 
@@ -114,7 +114,7 @@ string Expression::RandomPart()
 		}
 		else
 		{
-			part += (char)(randNum + 48);/*è¿™é‡Œç”¨çš„æ˜¯stringç±»æ„é€ å‡½æ•°ï¼šstring(char c);*/
+			part += (char)(randNum + 48);/*ÕâÀïÓÃµÄÊÇstringÀà¹¹Ôìº¯Êı£ºstring(char c);*/
 		}
 	}
 
@@ -139,7 +139,7 @@ string Expression::RandomPart()
 		int randNum2;
 		randNum2 = RandomNum();
 
-		if (oper == '/') //å¦‚æœå‡ºç°äº†è§¦å‘ï¼Œè¦ç¡®ä¿ç¬¬äºŒä¸ªæ•°ä¸ä¸º0
+		if (oper == '/') //Èç¹û³öÏÖÁË´¥·¢£¬ÒªÈ·±£µÚ¶ş¸öÊı²»Îª0
 		{
 			while (randNum2 == 0)
 				randNum2 = RandomNum();
@@ -160,14 +160,14 @@ string Expression::RandomPart()
 	return part;
 }
 
-/*å‚æ•°æ˜¯ä¸€ä¸ªstringç±»å‹ï¼Œä»£è¡¨ä¸€ä¸ªpartï¼Œä½œç”¨æ˜¯å°†è¿™ä¸ªpartè¿æ¥åˆ°ç§æœ‰æˆå‘˜expressionåé¢*/
+/*²ÎÊıÊÇÒ»¸östringÀàĞÍ£¬´ú±íÒ»¸öpart£¬×÷ÓÃÊÇ½«Õâ¸öpartÁ¬½Óµ½Ë½ÓĞ³ÉÔ±expressionºóÃæ*/
 string & Expression::AddPart(const string & part)
 {
 	expression += part;
 	return expression;
 }
 
-/*å‚æ•°æ˜¯ä¸€ä¸ªstringç±»å‹ï¼Œä»£è¡¨ä¸€ä¸ªpartï¼Œè¿”å›å€¼æ˜¯è¿™ä¸ªpartçš„è®¡ç®—å€¼*/
+/*²ÎÊıÊÇÒ»¸östringÀàĞÍ£¬´ú±íÒ»¸öpart£¬·µ»ØÖµÊÇÕâ¸öpartµÄ¼ÆËãÖµ*/
 int Expression::PartValue(const string & part)
 {
 	int val = FALSE;
@@ -175,30 +175,30 @@ int Expression::PartValue(const string & part)
 	int num1;
 	int num2;
 
-	//è¦é˜²æ­¢(7*1)+(5-6)*(9*8)/10+9
-	if (part[0] == '(')//partæ˜¯å½¢å¦‚ï¼ˆa+bï¼‰çš„  ä½†æœ‰å¯èƒ½å‡ºç°(10+5) (5+10) (10+10)
+	//Òª·ÀÖ¹(7*1)+(5-6)*(9*8)/10+9
+	if (part[0] == '(')//partÊÇĞÎÈç£¨a+b£©µÄ  µ«ÓĞ¿ÉÄÜ³öÏÖ(10+5) (5+10) (10+10)
 	{
-		if (part.length() == 7) //å½¢å¦‚ (10+10)
+		if (part.length() == 7) //ĞÎÈç (10+10)
 		{
 			oper = part[3];
 			num1 = num2 = 10;
 		}
-		else if (part.length() == 6) //å½¢å¦‚ (10+a)
+		else if (part.length() == 6) //ĞÎÈç (10+a)
 		{
-			if (part[1] == '1'&&part[2] == '0')//å½¢å¦‚ (10+a)
+			if (part[1] == '1'&&part[2] == '0')//ĞÎÈç (10+a)
 			{
 				num1 = 10;
 				oper = part[3];
-				num2 = part[4] - '0';//Ascllç å­—ç¬¦è½¬æ¢intæ•°å€¼ 
+				num2 = part[4] - '0';//AscllÂë×Ö·û×ª»»intÊıÖµ 
 			}
-			else //æˆ–(a+10)
+			else //»ò(a+10)
 			{
 				num1 = part[1] - '0';
 				oper = part[2];
 				num2 = 10;
 			}
 		}
-		else //å½¢å¦‚ (a+b)
+		else //ĞÎÈç (a+b)
 		{
 			oper = part[2];
 			num1 = part[1] - '0';
@@ -217,7 +217,7 @@ int Expression::PartValue(const string & part)
 			val = num1 * num2;
 			break;
 		case'/':
-			//å¦‚æœå‡ºç°é™¤æ³•ï¼Œä¸¤ç§æƒ…å†µè¦è¿”å›FLASEã€‚ç¬¬ä¸€ä¸ªï¼šé™¤æ•°ä¸º0ï¼Œç¬¬äºŒä¸ªï¼šä¸èƒ½æ•´é™¤
+			//Èç¹û³öÏÖ³ı·¨£¬Á½ÖÖÇé¿öÒª·µ»ØFLASE¡£µÚÒ»¸ö£º³ıÊıÎª0£¬µÚ¶ş¸ö£º²»ÄÜÕû³ı
 			if (num1%num2 != 0 || num2 == 0)
 			{
 				return FALSE;
@@ -231,7 +231,7 @@ int Expression::PartValue(const string & part)
 		}
 	}
 
-	else //partæ˜¯ä¸€ä¸ªæ•°
+	else //partÊÇÒ»¸öÊı
 	{
 		if (part[0] == '1'&&part[1] == '0')
 		{
@@ -246,18 +246,18 @@ int Expression::PartValue(const string & part)
 	return val;
 }
 
-/*éšæœºç”Ÿæˆä¸€ä¸ªä¸­ç¼€è¡¨è¾¾å¼*/
+/*Ëæ»úÉú³ÉÒ»¸öÖĞ×º±í´ïÊ½*/
 Expression Expression::CreateInfixExpression()
 {
 	srand(RandomeSeed());
 	int rank;
-	rank = rand() % 3 + 2; //rankä¸º2~4ï¼Œæ„æ€æ˜¯é•¿åº¦å¯å˜çš„ä¸­ç¼€å¼å­
+	rank = rand() % 3 + 2; //rankÎª2~4£¬ÒâË¼ÊÇ³¤¶È¿É±äµÄÖĞ×ºÊ½×Ó
 
-	int val1, val2;//val1ä»£è¡¨å‰é¢çš„ï¼Œval2ä»£è¡¨åé¢çš„ï¼Œé˜²æ­¢å‡ºç°å‰é¢é™¤ä»¥åé¢ä¸æ•´é™¤
+	int val1, val2;//val1´ú±íÇ°ÃæµÄ£¬val2´ú±íºóÃæµÄ£¬·ÀÖ¹³öÏÖÇ°Ãæ³ıÒÔºóÃæ²»Õû³ı
 
 	string randPart = RandomPart();
 	val1 = PartValue(randPart);
-	while (val1 == FALSE)//é˜²æ­¢äº†ï¼ˆ7/5ï¼‰   
+	while (val1 == FALSE)//·ÀÖ¹ÁË£¨7/5£©   
 	{
 		randPart = RandomPart();
 		val1 = PartValue(randPart);
@@ -273,7 +273,7 @@ Expression Expression::CreateInfixExpression()
 
 		randPart = RandomPart();
 		val2 = PartValue(randPart);
-		if (oper == '/')    //å¦‚æœå‡ºç°äº†é™¤å·ï¼Œé‚£è¦ç¡®ä¿é™¤æ•°ä¸ä¸ºé›¶
+		if (oper == '/')    //Èç¹û³öÏÖÁË³ıºÅ£¬ÄÇÒªÈ·±£³ıÊı²»ÎªÁã
 		{
 			while (val2 == 0 || val1%val2 != 0)
 			{
@@ -290,8 +290,8 @@ Expression Expression::CreateInfixExpression()
 			}
 		}
 
-		//æ‰©å±•val1 = val2;
-		if (oper == '/')//  è¦é˜²æ­¢ï¼š 8/(7-3)/4
+		//À©Õ¹val1 = val2;
+		if (oper == '/')//  Òª·ÀÖ¹£º 8/(7-3)/4
 		{
 			val1 = val1 / val2;
 		}
@@ -308,7 +308,7 @@ Expression Expression::CreateInfixExpression()
 	return *this;
 }
 
-/*æ ¹æ®ç±»æˆå‘˜expressionçš„ä¸­ç¼€è¡¨è¾¾å¼ï¼Œç”Ÿæˆå…¶å¯¹åº”çš„é€†æ³¢å…°å¼ï¼Œæ”¾åˆ°æˆå‘˜reversePolishNotationä¸­*/
+/*¸ù¾İÀà³ÉÔ±expressionµÄÖĞ×º±í´ïÊ½£¬Éú³ÉÆä¶ÔÓ¦µÄÄæ²¨À¼Ê½£¬·Åµ½³ÉÔ±reversePolishNotationÖĞ*/
 Expression Expression::ReversePolishNotation()
 {
 	Stack s1, s2;
@@ -370,14 +370,14 @@ Expression Expression::ReversePolishNotation()
 			break;
 
 		case'1':
-			if (expression[i + 1] == '0')//è¯´æ˜æ˜¯æ•°å­—å;
+			if (expression[i + 1] == '0')//ËµÃ÷ÊÇÊı×ÖÊ®;
 			{
-				//åœ¨stringä¸­ï¼Œç”¨'#'ä»£è¡¨æ•°å€¼10ã€‚åœ¨è®¡ç®—å‡½æ•°ä¸­ï¼Œé‡åˆ°#å°±ç”¨10å¸¦å…¥è®¡ç®—
+				//ÔÚstringÖĞ£¬ÓÃ'#'´ú±íÊıÖµ10¡£ÔÚ¼ÆËãº¯ÊıÖĞ£¬Óöµ½#¾ÍÓÃ10´øÈë¼ÆËã
 				s2.push('#');
 				i++;
 				break;
 			}
-		default://å…¶ä»–æ•°å­—
+		default://ÆäËûÊı×Ö
 			s2.push(expression[i]);
 		}
 	}
@@ -403,13 +403,13 @@ Expression Expression::ReversePolishNotation()
 	return *this;
 }
 
-/*æ ¹æ®é€†æ³¢å…°å¼ï¼Œæ±‚å‡ºè¡¨è¾¾å¼çš„å€¼ï¼Œæ”¾åˆ°ç§æœ‰æˆå‘˜valueä¸­ã€‚ç»“æœå¦‚æœæ˜¯æ•´æ•°ï¼Œåˆ™è¿”å›æ•´æ•°ã€‚å¦‚æœä¸æ˜¯æ•´æ•°ï¼Œè¿”å›FALSEã€‚*/
+/*¸ù¾İÄæ²¨À¼Ê½£¬Çó³ö±í´ïÊ½µÄÖµ£¬·Åµ½Ë½ÓĞ³ÉÔ±valueÖĞ¡£½á¹ûÈç¹ûÊÇÕûÊı£¬Ôò·µ»ØÕûÊı¡£Èç¹û²»ÊÇÕûÊı£¬·µ»ØFALSE¡£*/
 int Expression::ExpressionValue()
 {
 	Stack s;
 	int size = reversePolishNotation.length();
 
-	int num1, num2;//å› ä¸ºæœ‰ç”¨#ä»£è¡¨10ï¼Œå°±å…ˆç”¨intå­˜
+	int num1, num2;//ÒòÎªÓĞÓÃ#´ú±í10£¬¾ÍÏÈÓÃint´æ
 	int i;
 
 	for (i = 0; i < size; i++)
@@ -445,7 +445,7 @@ int Expression::ExpressionValue()
 			s.pop();
 			num2 = s.top();
 			s.pop();
-			//åªæœ‰åšé™¤æ³•æ—¶å¯èƒ½å‡ºç°ç­”æ¡ˆä¸ºéæ•´æ•°çš„æƒ…å†µ
+			//Ö»ÓĞ×ö³ı·¨Ê±¿ÉÄÜ³öÏÖ´ğ°¸Îª·ÇÕûÊıµÄÇé¿ö
 			if (num2%num1 == 0)
 			{
 				s.push(num2 / num1);
@@ -456,11 +456,11 @@ int Expression::ExpressionValue()
 			}
 			break;
 
-		case'#'://æ•°å€¼10
+		case'#'://ÊıÖµ10
 			s.push(10);
 			break;
 
-		default://å…¶ä»–æ•°å€¼
+		default://ÆäËûÊıÖµ
 			s.push(reversePolishNotation[i] - '0');
 			break;
 		}
@@ -469,7 +469,7 @@ int Expression::ExpressionValue()
 	return value;
 }
 
-/*é‡è½½è¾“å‡ºè¿ç®—ç¬¦*/
+/*ÖØÔØÊä³öÔËËã·û*/
 ostream & operator<<(ostream & os, const Expression & e)
 {
 	os << e.expression;

@@ -1,39 +1,43 @@
-ï»¿#pragma once
+#pragma once
 /**************************************************************************
-æ–‡ä»¶åï¼š ExtendFunction.h
-ä½œè€…ï¼šHXP  æ¶¦è‰²ä¿®æ”¹ï¼šZC  æ—¥æœŸï¼š2017/02/15
-æè¿°: å…¶ä»–çš„å¤–éƒ¨å‡½æ•°ã€‚
-ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼šè¯­è¨€é€‰æ‹©ã€è¾“å…¥æ£€æµ‹ã€é¢˜ç›®ç”Ÿæˆä»¥åŠæ˜¾ç¤ºã€ç­”æ¡ˆåˆ¤å®š
+ÎÄ¼þÃû£º ExtendFunction.h
+×÷Õß£ºHXP  ÈóÉ«ÐÞ¸Ä£ºZC  ÈÕÆÚ£º2017/02/15
+ÃèÊö: ÆäËûµÄÍâ²¿º¯Êý¡£
+Ö÷Òª¹¦ÄÜ°üÀ¨£ºÓïÑÔÑ¡Ôñ¡¢ÊäÈë¼ì²â¡¢ÌâÄ¿Éú³ÉÒÔ¼°ÏÔÊ¾¡¢´ð°¸ÅÐ¶¨
 
-ä½œè€…ï¼šZC   æ—¥æœŸï¼š2017/03/09
-æ›´æ–°ï¼šç”¨èµ„æºæ–‡ä»¶ç®¡ç†å¤šè¯­è¨€ç‰ˆæœ¬ï¼ŒæŠŠè¯­è¨€å†™åˆ°èµ„æºä¸­è€Œä¸æ˜¯ä»£ç ä¸­ï¼Œæ•…å¯¹åŽŸæœ‰ä»£ç è¿›è¡Œé‡æž„
+×÷Õß£ºZC   ÈÕÆÚ£º2017/03/09
+¸üÐÂ£ºÓÃ×ÊÔ´ÎÄ¼þ¹ÜÀí¶àÓïÑÔ°æ±¾£¬°ÑÓïÑÔÐ´µ½×ÊÔ´ÖÐ¶ø²»ÊÇ´úÂëÖÐ£¬¹Ê¶ÔÔ­ÓÐ´úÂë½øÐÐÖØ¹¹
 
-åˆ é™¤ï¼šä¸­è‹±æ–‡é€‰æ‹©å‡½æ•°ã€‚
-ä¿®æ”¹ï¼šè¾“å…¥æ£€æµ‹ã€ç­”æ¡ˆåˆ¤å®šçš„ä¸­è‹±æ–‡ç‰ˆæœ¬ï¼Œæ”¹æˆå•çº¯å‡½æ•°æ¨¡å—ï¼Œä¸åŒ…å«ä¸åŒçš„è¯­è¨€ç‰ˆæœ¬
+É¾³ý£ºÖÐÓ¢ÎÄÑ¡Ôñº¯Êý¡£
+ÐÞ¸Ä£ºÊäÈë¼ì²â¡¢´ð°¸ÅÐ¶¨µÄÖÐÓ¢ÎÄ°æ±¾£¬¸Ä³Éµ¥´¿º¯ÊýÄ£¿é£¬²»°üº¬²»Í¬µÄÓïÑÔ°æ±¾
 
-æ³¨ï¼šå…³äºŽResource[i]ä¸­çš„å†…å®¹è¯·æ³¨æ„å¤´æ–‡ä»¶LanguageResource.hå†…çš„æ³¨é‡Šè¯´æ˜Ž
+×¢£º¹ØÓÚResource[i]ÖÐµÄÄÚÈÝÇë×¢ÒâÍ·ÎÄ¼þLanguageResource.hÄÚµÄ×¢ÊÍËµÃ÷
+
+×÷Õß£ºZC   ¸üÐÂÈÕÆÚ£º2017/04/18
+ÃèÊö£ºÔö¼ÓÐÂµÄº¯Êý Scan ¸Ãº¯Êý·â×°ÁËÒ»Ð©¹¦ÄÜ£¬ÓÃÓÚÓëÓÃ»§½»»¥£¬»ñÈ¡ÊäÈëÊý¾Ý£¨ÍêÈ«Ã»±ØÒªÂï¡£¡£
 ***************************************************************************/
 
 #include "Expression.h"
 #include "LanguageResource.h"
 
-/*è¾“å…¥æ£€æµ‹*/
+/*¶ÔÌâÄ¿ÊýÁ¿nµÄÊäÈë¼ì²â*/
 int GetInt()
 {
 	int input;
 	char ch;
-	
+
 	cout << Resource[1];
 
-	while (scanf_s("%d", &input) != 1)//è¾“å…¥çš„ä¸æ˜¯%d
+	while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
 	{
 		cout << Resource[2];
 		while ((ch = getchar()) != '\n')
-			putchar(ch);//å¦‚æžœç”¨æˆ·è¾“å…¥äº†å­—ç¬¦ä¸²ï¼Œå°±æ˜¾ç¤ºè¿™ä¸ªå­—ç¬¦ä¸²ï¼Œå¹¶ä¸”åœ¨æ˜¾ç¤ºâ€œä¸ç¬¦åˆè¦æ±‚â€
+			putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
 		cout << Resource[3] << endl;
-	
+
 		cout << Resource[1];
 	}
+
 	while (input <= 0 || input > 100)
 	{
 		if (input < 0)
@@ -54,18 +58,37 @@ int GetInt()
 	return input;
 }
 
+/*¶ÔÓÚÊäÈëÌâÄ¿µÄ´ð°¸answerµÄÊäÈë¼ì²â*/
+int GetAnswer()
+{
+	int input;
+	char ch;
 
-/*è¿”å›žå€¼æ˜¯ä¸€ä¸ªè¡¨è¾¾å¼ç±»ï¼Œé‡Œé¢çš„å†…å®¹æ˜¯é¢˜ç›®*/
+	while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
+	{
+		cout << Resource[2];
+		while ((ch = getchar()) != '\n')
+			putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
+		cout << Resource[3] << endl;
+
+		cout << Resource[8];
+	}
+
+	return input;
+}
+
+
+/*·µ»ØÖµÊÇÒ»¸ö±í´ïÊ½Àà£¬ÀïÃæµÄÄÚÈÝÊÇÌâÄ¿*/
 Expression CreateProblems()
 {
-	int val = FALSE;//æ­£ç¡®ç­”æ¡ˆ
+	int val = FALSE;//ÕýÈ·´ð°¸
 	Expression expression;
 
 	expression.CreateInfixExpression();
 	expression.ReversePolishNotation();
 	val = expression.ExpressionValue();
 
-	while (val == FALSE)//ç¡®ä¿ä¸ä¼šå‡ºçŽ°ç­”æ¡ˆä¸ºéžæ•´æ•°çš„é¢˜ç›®
+	while (val == FALSE)//È·±£²»»á³öÏÖ´ð°¸Îª·ÇÕûÊýµÄÌâÄ¿
 	{
 		Expression expression;
 
@@ -76,10 +99,10 @@ Expression CreateProblems()
 	return expression;
 }
 
-/*ç­”æ¡ˆåˆ¤å®š*/
+/*´ð°¸ÅÐ¶¨*/
 bool Judge(int answer, Expression & e)
 {
-	int val = e.ExpressionValue();//æ­£ç¡®ç­”æ¡ˆ
+	int val = e.ExpressionValue();//ÕýÈ·´ð°¸
 
 	if (answer == val)
 	{

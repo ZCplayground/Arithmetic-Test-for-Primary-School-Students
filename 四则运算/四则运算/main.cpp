@@ -1,61 +1,54 @@
-ï»¿/******************************************************************************
-æ–‡ä»¶åï¼š main.cpp
-ä½œè€…ï¼šZC  æ—¥æœŸï¼š2017/02/15
-æè¿°: ä¸»å‡½æ•°ï¼Œå®ç°ä¸»ä½“åŠŸèƒ½
+/******************************************************************************
+ÎÄ¼şÃû£º main.cpp
+×÷Õß£ºZC  ÈÕÆÚ£º2017/02/15
+ÃèÊö: Ö÷º¯Êı£¬ÊµÏÖÖ÷Ìå¹¦ÄÜ
 
-ä½œè€…ï¼šZC  æ—¥æœŸï¼š2017/03/09
-æ›´æ–°ï¼šç”¨èµ„æºæ–‡ä»¶ç®¡ç†å¤šè¯­è¨€ç‰ˆæœ¬ï¼ŒæŠŠè¯­è¨€å†™åˆ°èµ„æºä¸­è€Œä¸æ˜¯ä»£ç ä¸­ï¼Œæ•…å¯¹åŸæœ‰ä»£ç è¿›è¡Œé‡æ„
+×÷Õß£ºZC  ÈÕÆÚ£º2017/03/09
+¸üĞÂ£ºÓÃ×ÊÔ´ÎÄ¼ş¹ÜÀí¶àÓïÑÔ°æ±¾£¬°ÑÓïÑÔĞ´µ½×ÊÔ´ÖĞ¶ø²»ÊÇ´úÂëÖĞ£¬¹Ê¶ÔÔ­ÓĞ´úÂë½øĞĞÖØ¹¹
 
-æ³¨ï¼šå…³äºResource[i]ä¸­çš„å†…å®¹è¯·æ³¨æ„å¤´æ–‡ä»¶LanguageResource.hå†…çš„æ³¨é‡Šè¯´æ˜
+×¢£º¹ØÓÚResource[i]ÖĞµÄÄÚÈİÇë×¢ÒâÍ·ÎÄ¼şLanguageResource.hÄÚµÄ×¢ÊÍËµÃ÷
+
+×÷Õß£ºZC  ÈÕÆÚ£º2017/04/23 
+¸üĞÂ£ºÌí¼ÓÁËÁ½¸öscanº¯ÊıÓÃÓÚÓëÓÃ»§½»»¥²¢»ñÈ¡ÊäÈëĞÅÏ¢£¬Ò»¸öPrintº¯Êı£¬ÓÃÓÚÊä³ö½á¹û
 *******************************************************************************/
 #include "Expression.h"
 #include "ExtendFunction.h"
 #include "LanguageResource.h"
 
-int main()
-{
-	int i;
-	int n;//ç”¨æˆ·è¾“å…¥æƒ³åšçš„é¢˜ç›®æ•°é‡
-	int answer;//ç”¨æˆ·è¾“å…¥é¢˜ç›®ç­”æ¡ˆ
-	static int numRight = 0, numWrong = 0;//ç»Ÿè®¡æ€»é¢˜æ•°ã€æ­£ç¡®å’Œé”™è¯¯é¢˜æ•°
-	double accuracy;//æ­£ç¡®ç‡
+char language[200];//ÓÃ»§ÊäÈëÓïÑÔ
+int n;//ÓÃ»§ÊäÈëÏë×öµÄÌâÄ¿ÊıÁ¿
+static int answer;//ÓÃ»§ÊäÈëÌâÄ¿´ğ°¸
+static int numRight = 0, numWrong = 0;//Í³¼Æ×ÜÌâÊı¡¢ÕıÈ·ºÍ´íÎóÌâÊı
+static double accuracy;//ÕıÈ·ÂÊ
+extern char *Resource[MAXLINE];
 
+bool ScanLanguage()//Á½¸öscanº¯ÊıÓÃÓÚÓëÓÃ»§½»»¥²¢»ñÈ¡ÊäÈëĞÅÏ¢
+{
 	cout << "Arithmetic Test For Primary School Students" << endl << endl;
 	ShowLanguageList();
 
-	char language[200];//ç”¨æˆ·è¾“å…¥è¯­è¨€
 	gets_s(language);
 
-	while (CheckLanguageSupport(language) == false)//è¾“å…¥è¯­è¨€æ£€æµ‹
+	while (CheckLanguageSupport(language) == false)//ÊäÈëÓïÑÔ¼ì²â
 	{
 		if (strcmp("e", language) == 0)
 		{
 			cout << endl << "The program is going to be finished. Goodbye!~" << endl;
 			getchar();
-			return 0;
+			return false;
 		}
 		cout << "Sorry. Your input is wrong or software does not support your language. " << endl;
 
 		ShowLanguageList();
 		gets_s(language);
 	}
+	return true;
+}
 
-	char Langpath[255] = "";//æ ¹æ®ç”¨æˆ·çš„è¾“å…¥å»å½¢æˆä¸€ä¸ªè·¯å¾„
-	strcat_s(Langpath, "LangResourses\\");
-	strcat_s(Langpath, language);
-	strcat_s(Langpath, ".txt");
-
-	/*æµ‹è¯•ç”¨ä¾‹
-
-	GetResource("LangResourses\\æ—¥æœ¬ã®.txt");
-	for (i = 0; i < 13; i++)
-	{
-	cout << Resource[i] << endl;
-	}
-	*/
-
-	GetResource(Langpath);
-	n = GetInt();//è¾“å…¥æ£€æµ‹
+int ScanNumofProblems()
+{
+	int n;
+	n = GetInt();//ÊäÈë¼ì²â
 	if (n == 0)
 	{
 		cout << Resource[0] << endl;
@@ -63,10 +56,44 @@ int main()
 		getchar();
 		return 0;
 	}
+	return n;
+}
+
+void Print()//Êä³öÍ³¼Æ½á¹û¸øÓÃ»§
+{
+	accuracy = (double)numRight / n * 100;
+
+	cout << Resource[9] << endl << endl;
+	cout << Resource[10] << numRight << endl;
+	cout << Resource[11] << numWrong << endl;
+	cout << Resource[12] << accuracy << "%" << endl;
+
+	cout << endl << Resource[0] << endl;
+}
+
+int main()
+{
+	bool validLang = ScanLanguage();
+	if (!validLang)
+	{
+		return 0;
+	}
+
+	char Langpath[255] = "";//¸ù¾İÓÃ»§µÄÊäÈëÈ¥ĞÎ³ÉÒ»¸öÂ·¾¶
+	strcat_s(Langpath, "LangResourses\\");
+	strcat_s(Langpath, language);
+	strcat_s(Langpath, ".txt");
+
+	GetResource(Langpath);
+	
+	n = ScanNumofProblems();
+
+	int i;
+	bool result;//ÓÃÓÚ²âÊÔ´ğ°¸ÕıÈ·Óë·ñ
 
 	for (i = 1; i <= n; i++)
 	{
-		Expression expression; //é¢˜ç›®
+		Expression expression; //ÌâÄ¿
 		expression = CreateProblems();
 
 		cout << "No." << i << "\t" << expression << endl;
@@ -74,7 +101,8 @@ int main()
 
 		cin >> answer;
 
-		bool result = Judge(answer, expression);
+		result = Judge(answer, expression);
+
 		if (result == true)
 		{
 			numRight++;
@@ -86,14 +114,12 @@ int main()
 		expression.~Expression();
 	}
 
-	accuracy = numRight*1.0 / n * 100;
+	Print();
 
-	cout << Resource[9] << endl << endl;
-	cout << Resource[10] << numRight << endl;
-	cout << Resource[11] << numWrong << endl;
-	cout << Resource[12] << accuracy << "%" << endl;
-
-	cout << endl << Resource[0] << endl;
+	for (i = 0; i < 13; i++)
+	{
+		free(Resource[i]);
+	}
 
 	getchar();
 	getchar();
