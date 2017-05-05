@@ -17,10 +17,10 @@ char *rand_Oper_List = "+-*/+-*+*/-+*-+/*-+-*-+*/-+*-*+-*/+-*+*+-*-+*-+/*/+-/*-+
 const int operListLen = strlen(rand_Oper_List);
 
 /*随机数、随机种子相关*/
-static unsigned int long seed = (unsigned int)time(NULL);/*用时间定义初始种子*/
+static unsigned int seed = (unsigned int)time(NULL);/*用时间定义初始种子*/
 unsigned int RandomeSeed(void)/*每次随机后让种子变成一个新的*/
 {
-	seed = seed * 11035152465 + 12345;
+	seed = seed * 11035 + 12345;
 	return (unsigned int)(seed / 65536) % 32768;
 }
 /*解释下为什么。如果只有时间作为种子，那么如果程序在一秒之内跑完，会导致所有计算题都是一样的*/
@@ -139,7 +139,7 @@ string Expression::RandomPart()
 		int randNum2;
 		randNum2 = RandomNum();
 
-		if (oper == '/') //如果出现了触发，要确保第二个数不为0
+		if (oper == '/') //如果出现了除法，要确保第二个数不为0
 		{
 			while (randNum2 == 0)
 				randNum2 = RandomNum();

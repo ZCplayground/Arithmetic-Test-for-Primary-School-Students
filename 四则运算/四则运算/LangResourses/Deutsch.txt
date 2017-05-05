@@ -11,3 +11,5 @@ Ergebnisse Statistik
 Vorbehaltlich der Menge, die Sie tun, ist:
 Die Anzahl der Elemente waren Sie falsch f¨¹r:
 War richtig:
+Geben Sie Ihre Antwort lautet:
+Die richtige Antwort lautet:

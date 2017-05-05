@@ -11,3 +11,5 @@ Results Statistics:
 The number of right answer(s) you did is:
 The number of wrong answer(s) you did is:
 The correct rate is:
+The answer you entered is:
+The correct answer is:

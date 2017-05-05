@@ -5,63 +5,16 @@
 
 作者：ZC  日期：2017/03/09
 更新：用资源文件管理多语言版本，把语言写到资源中而不是代码中，故对原有代码进行重构
-
 注：关于Resource[i]中的内容请注意头文件LanguageResource.h内的注释说明
 
-作者：ZC  日期：2017/04/23 
-更新：添加了两个scan函数用于与用户交互并获取输入信息，一个Print函数，用于输出结果
+作者：ZC  日期：2017/05/06
+更新：命令行版本。
 *******************************************************************************/
 #include "Expression.h"
 #include "ExtendFunction.h"
 #include "LanguageResource.h"
 extern char *Resource[MAXLINE];
-
-int ScanLanguage(char * language)//两个scan函数用于与用户交互并获取输入信息
-{
-	while (CheckLanguageSupport(language) == false)//输入语言检测
-	{
-		if (strcmp("e", language) == 0)
-		{
-			cout << endl << "The program is going to be finished. Goodbye!~" << endl;
-			getchar();
-			return -1;
-		}
-		cout << "Sorry. Your input is wrong or software does not support your language. " << endl;
-
-		ShowLanguageList();
-		return -2;
-	}
-	return 1;
-}
-
-int ScanNumofProblems()
-{
-	int n;
-	n = GetInt();//输入检测
-	if (n == 0)
-	{
-		cout << Resource[0] << endl;
-		getchar();
-		getchar();
-		return 0;
-	}
-	return n;
-}
-
-void Print(int n, int numRight, int numWrong)//输出统计结果给用户
-{
-	static double accuracy;//正确率
-	accuracy = (double)numRight / n * 100;
-
-	cout << Resource[9] << endl << endl;
-	cout << Resource[10] << numRight << endl;
-	cout << Resource[11] << numWrong << endl;
-	cout << Resource[12] << accuracy << "%" << endl;
-
-	cout << endl << Resource[0] << endl;
-}
-
-int main()
+int main(int argc, char *argv[])
 {
 	cout << "Arithmetic Test For Primary School Students" << endl << endl;
 	ShowLanguageList();
@@ -69,16 +22,16 @@ int main()
 	gets_s(language);
 	int validLangChoice = ScanLanguage(language);
 	while (1) {
-		if (validLangChoice==-1)//退出程序
+		if (validLangChoice == -1)//用户选择退出程序
 		{
 			return 0;
 		}
-		else if (validLangChoice == -2)//重新输入
+		else if (validLangChoice == -2)//用户输入有误并选择重新输入
 		{
 			gets_s(language);
 			validLangChoice = ScanLanguage(language);
 		}
-		else if (validLangChoice == 1)//输入正确
+		else if (validLangChoice == 1)//用户输入的语言正确
 		{
 			break;
 		}
@@ -92,7 +45,9 @@ int main()
 	GetResource(Langpath);
 
 	int n;//用户输入想做的题目数量
-	n = ScanNumofProblems();
+
+	//n = ScanNumofProblems();  //标准输入
+	n = ReadFile(argv[1]);      //文件输入
 
 	int i;
 	bool result;//用于测试答案正确与否
@@ -120,10 +75,14 @@ int main()
 		{
 			numWrong++;
 		}
+		WriteExpression(argv[2], expression, answer, expression.ExpressionValue(), i);//输出到文件
 		expression.~Expression();
 	}
 
-	Print(n, numRight, numWrong);
+	//Print(n, numRight, numWrong);   标准输出
+	WriteResult(argv[2], n, numRight, numWrong);//输出到文件
+
+	cout << endl << Resource[0] << endl;
 
 	for (i = 0; i < 13; i++)
 	{
