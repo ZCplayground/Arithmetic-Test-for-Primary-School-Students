@@ -25,7 +25,7 @@ int GetInt()
 {
 	int input;
 	char ch;
-
+	
 	cout << Resource[1];
 
 	while (scanf_s("%d", &input) != 1)//输入的不是%d
@@ -37,6 +37,8 @@ int GetInt()
 
 		cout << Resource[1];
 	}
+
+	while((ch = getchar()) != '\n' && ch != EOF);
 
 	while (input <= 0 || input > 100)
 	{
@@ -73,6 +75,8 @@ int GetAnswer()
 
 		cout << Resource[8];
 	}
+
+	while ((ch = getchar()) != '\n' && ch != EOF);
 
 	return input;
 }

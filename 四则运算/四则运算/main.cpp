@@ -14,35 +14,24 @@
 #include "Expression.h"
 #include "ExtendFunction.h"
 #include "LanguageResource.h"
-
-char language[200];//用户输入语言
-int n;//用户输入想做的题目数量
-static int answer;//用户输入题目答案
-static int numRight = 0, numWrong = 0;//统计总题数、正确和错误题数
-static double accuracy;//正确率
 extern char *Resource[MAXLINE];
 
-bool ScanLanguage()//两个scan函数用于与用户交互并获取输入信息
+int ScanLanguage(char * language)//两个scan函数用于与用户交互并获取输入信息
 {
-	cout << "Arithmetic Test For Primary School Students" << endl << endl;
-	ShowLanguageList();
-
-	gets_s(language);
-
 	while (CheckLanguageSupport(language) == false)//输入语言检测
 	{
 		if (strcmp("e", language) == 0)
 		{
 			cout << endl << "The program is going to be finished. Goodbye!~" << endl;
 			getchar();
-			return false;
+			return -1;
 		}
 		cout << "Sorry. Your input is wrong or software does not support your language. " << endl;
 
 		ShowLanguageList();
-		gets_s(language);
+		return -2;
 	}
-	return true;
+	return 1;
 }
 
 int ScanNumofProblems()
@@ -59,8 +48,9 @@ int ScanNumofProblems()
 	return n;
 }
 
-void Print()//输出统计结果给用户
+void Print(int n, int numRight, int numWrong)//输出统计结果给用户
 {
+	static double accuracy;//正确率
 	accuracy = (double)numRight / n * 100;
 
 	cout << Resource[9] << endl << endl;
@@ -73,10 +63,25 @@ void Print()//输出统计结果给用户
 
 int main()
 {
-	bool validLang = ScanLanguage();
-	if (!validLang)
-	{
-		return 0;
+	cout << "Arithmetic Test For Primary School Students" << endl << endl;
+	ShowLanguageList();
+	char language[200];//用户输入语言
+	gets_s(language);
+	int validLangChoice = ScanLanguage(language);
+	while (1) {
+		if (validLangChoice==-1)//退出程序
+		{
+			return 0;
+		}
+		else if (validLangChoice == -2)//重新输入
+		{
+			gets_s(language);
+			validLangChoice = ScanLanguage(language);
+		}
+		else if (validLangChoice == 1)//输入正确
+		{
+			break;
+		}
 	}
 
 	char Langpath[255] = "";//根据用户的输入去形成一个路径
@@ -85,11 +90,15 @@ int main()
 	strcat_s(Langpath, ".txt");
 
 	GetResource(Langpath);
-	
+
+	int n;//用户输入想做的题目数量
 	n = ScanNumofProblems();
 
 	int i;
 	bool result;//用于测试答案正确与否
+
+	int answer;//用户输入题目答案
+	static int numRight = 0, numWrong = 0;//统计总题数、正确和错误题数
 
 	for (i = 1; i <= n; i++)
 	{
@@ -99,7 +108,7 @@ int main()
 		cout << "No." << i << "\t" << expression << endl;
 		cout << "\t" << Resource[8];
 
-		cin >> answer;
+		answer = GetAnswer();
 
 		result = Judge(answer, expression);
 
@@ -114,14 +123,12 @@ int main()
 		expression.~Expression();
 	}
 
-	Print();
+	Print(n, numRight, numWrong);
 
 	for (i = 0; i < 13; i++)
 	{
 		free(Resource[i]);
 	}
-
-	getchar();
-	getchar();
+	system("pause");
 	return 0;
 }
