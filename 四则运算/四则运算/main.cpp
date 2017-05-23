@@ -1,19 +1,8 @@
-/******************************************************************************
-文件名： main.cpp
-作者：ZC  日期：2017/02/15
-描述: 主函数，实现主体功能
-
-作者：ZC  日期：2017/03/09
-更新：用资源文件管理多语言版本，把语言写到资源中而不是代码中，故对原有代码进行重构
-注：关于Resource[i]中的内容请注意头文件LanguageResource.h内的注释说明
-
-作者：ZC  日期：2017/05/06
-更新：命令行版本。
-*******************************************************************************/
 #include "Expression.h"
 #include "ExtendFunction.h"
-#include "LanguageResource.h"
-extern char *Resource[MAXLINE];
+using namespace std;
+extern char *Resource[];
+
 int main(int argc, char *argv[])
 {
 	cout << "Arithmetic Test For Primary School Students" << endl << endl;
@@ -46,7 +35,7 @@ int main(int argc, char *argv[])
 
 	int n;//用户输入想做的题目数量
 
-	//n = ScanNumofProblems();  //标准输入
+		  //n = ScanNumofProblems();  //标准输入
 	n = ReadFile(argv[1]);      //文件输入
 
 	int i;

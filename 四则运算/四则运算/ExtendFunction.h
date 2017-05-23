@@ -1,217 +1,47 @@
-#pragma once
-/**************************************************************************
-ÎÄ¼şÃû£º ExtendFunction.h
-×÷Õß£ºHXP  ÈóÉ«ĞŞ¸Ä£ºZC  ÈÕÆÚ£º2017/02/15
-ÃèÊö: ÆäËûµÄÍâ²¿º¯Êı¡£
-Ö÷Òª¹¦ÄÜ°üÀ¨£ºÓïÑÔÑ¡Ôñ¡¢ÊäÈë¼ì²â¡¢ÌâÄ¿Éú³ÉÒÔ¼°ÏÔÊ¾¡¢´ğ°¸ÅĞ¶¨
+ï»¿#pragma once
 
-×÷Õß£ºZC   ÈÕÆÚ£º2017/03/09
-¸üĞÂ£ºÓÃ×ÊÔ´ÎÄ¼ş¹ÜÀí¶àÓïÑÔ°æ±¾£¬°ÑÓïÑÔĞ´µ½×ÊÔ´ÖĞ¶ø²»ÊÇ´úÂëÖĞ£¬¹Ê¶ÔÔ­ÓĞ´úÂë½øĞĞÖØ¹¹
+class Expression;
 
-É¾³ı£ºÖĞÓ¢ÎÄÑ¡Ôñº¯Êı¡£
-ĞŞ¸Ä£ºÊäÈë¼ì²â¡¢´ğ°¸ÅĞ¶¨µÄÖĞÓ¢ÎÄ°æ±¾£¬¸Ä³Éµ¥´¿º¯ÊıÄ£¿é£¬²»°üº¬²»Í¬µÄÓïÑÔ°æ±¾
+/*å±•ç¤ºç›®å‰æ”¯æŒçš„è¯­è¨€åˆ—è¡¨*/
+void ShowLanguageList();
 
-×¢£º¹ØÓÚResource[i]ÖĞµÄÄÚÈİÇë×¢ÒâÍ·ÎÄ¼şLanguageResource.hÄÚµÄ×¢ÊÍËµÃ÷
+/*æ£€æµ‹ç”¨æˆ·è¾“å…¥çš„è¯­è¨€æ˜¯å¦æ”¯æŒã€‚å¦‚æœæ”¯æŒï¼Œè¿”å›trueã€‚ä¸æ”¯æŒè¿”å›false*/
+bool CheckLanguageSupport(char * users_Lang);
 
-×÷Õß£ºZC   ¸üĞÂÈÕÆÚ£º2017/04/18
-ÃèÊö£ºÔö¼ÓĞÂµÄº¯Êı Scan ¸Ãº¯Êı·â×°ÁËÒ»Ğ©¹¦ÄÜ£¬ÓÃÓÚÓëÓÃ»§½»»¥£¬»ñÈ¡ÊäÈëÊı¾İ£¨ÍêÈ«Ã»±ØÒªÂï¡£¡£
-
-×÷Õß£ºZC  ÈÕÆÚ£º2017/05/06
-¸üĞÂ£ºÃüÁîĞĞ°æ±¾¡£ÔÚÃüÁîĞĞÖĞÊäÈëµÄ²ÎÊıÎª£ºÓÃ»§ÒªÇóÌâÄ¿ÊıÁ¿µÄÎÄ¼şÂ·¾¶¡¢×îÖÕ½á¹ûµÄÎÄ¼şÂ·¾¶
-´ÓµÚÒ»¸öÎÄ¼şÖĞ¶ÁÈ¡ÓÃ»§ÒªÇóµÄÌâÄ¿ÊıÁ¿£¬²¢°Ñ½á¹ûÊä³öµ½µÚ¶ş¸öÎÄ¼şÖĞ¡£
-***************************************************************************/
-
-#include "Expression.h"
-#include "LanguageResource.h"
-
-/*¶ÔÌâÄ¿ÊıÁ¿nµÄÊäÈë¼ì²â*/
-int GetInt()
-{
-	int input;
-	char ch;
-	
-	cout << Resource[1];
-
-	while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
-	{
-		cout << Resource[2];
-		while ((ch = getchar()) != '\n')
-			putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
-		cout << Resource[3] << endl;
-
-		cout << Resource[1];
-	}
-
-	while((ch = getchar()) != '\n' && ch != EOF);
-
-	while (input <= 0 || input > 100)
-	{
-		if (input < 0)
-		{
-			cout << Resource[4] << endl;
-			input = GetInt();
-		}
-		if (input > 100)
-		{
-			cout << Resource[5] << endl;
-			input = GetInt();
-		}
-		if (input == 0)
-		{
-			return 0;
-		}
-	}
-	return input;
-}
-
-/*¶ÔÓÚÊäÈëÌâÄ¿µÄ´ğ°¸answerµÄÊäÈë¼ì²â*/
-int GetAnswer()
-{
-	int input;
-	char ch;
-
-	while (scanf_s("%d", &input) != 1)//ÊäÈëµÄ²»ÊÇ%d
-	{
-		cout << Resource[2];
-		while ((ch = getchar()) != '\n')
-			putchar(ch);//Èç¹ûÓÃ»§ÊäÈëÁË×Ö·û´®£¬¾ÍÏÔÊ¾Õâ¸ö×Ö·û´®£¬²¢ÇÒÔÚÏÔÊ¾¡°²»·ûºÏÒªÇó¡±
-		cout << Resource[3] << endl;
-
-		cout << Resource[8];
-	}
-
-	while ((ch = getchar()) != '\n' && ch != EOF);
-
-	return input;
-}
+/*æ ¹æ®æ­£ç¡®çš„è¯­è¨€æ–‡æ¡£è·¯å¾„ï¼Œå–å¾—å…¶ä¸­çš„å†…å®¹ä»¥ä¾¿ä½¿ç”¨ã€‚å­˜æ”¾åˆ°å…¨å±€æŒ‡é’ˆæ•°ç»„Resourceä¸­*/
+void GetResource(char * filepath);
 
 
-/*·µ»ØÖµÊÇÒ»¸ö±í´ïÊ½Àà£¬ÀïÃæµÄÄÚÈİÊÇÌâÄ¿*/
-Expression CreateProblems()
-{
-	int val = FALSE;//ÕıÈ·´ğ°¸
-	Expression expression;
+/*å¯¹é¢˜ç›®æ•°é‡nçš„è¾“å…¥æ£€æµ‹*/
+int GetInt();
 
-	expression.CreateInfixExpression();
-	expression.ReversePolishNotation();
-	val = expression.ExpressionValue();
+/*å¯¹äºè¾“å…¥é¢˜ç›®çš„ç­”æ¡ˆanswerçš„è¾“å…¥æ£€æµ‹*/
+int GetAnswer();
 
-	while (val == FALSE)//È·±£²»»á³öÏÖ´ğ°¸Îª·ÇÕûÊıµÄÌâÄ¿
-	{
-		Expression expression;
+/*è¿”å›å€¼æ˜¯ä¸€ä¸ªè¡¨è¾¾å¼ç±»ï¼Œé‡Œé¢çš„å†…å®¹æ˜¯é¢˜ç›®*/
+Expression CreateProblems();
 
-		expression.CreateInfixExpression();
-		expression.ReversePolishNotation();
-		val = expression.ExpressionValue();
-	}
-	return expression;
-}
+/*ç­”æ¡ˆåˆ¤å®š*/
+bool Judge(int answer, Expression & e);
 
-/*´ğ°¸ÅĞ¶¨*/
-bool Judge(int answer, Expression & e)
-{
-	int val = e.ExpressionValue();//ÕıÈ·´ğ°¸
+/*ä¸¤ä¸ªscanå‡½æ•°ï¼Œç”¨äºä¸ä½¿ç”¨æ ‡å‡†è¾“å…¥çš„ç”¨æˆ·äº¤äº’å–å¾—æ•°æ®*/
+int ScanLanguage(char * language);//ä¸¤ä¸ªscanå‡½æ•°ç”¨äºä¸ç”¨æˆ·äº¤äº’å¹¶è·å–è¾“å…¥ä¿¡æ¯
 
-	if (answer == val)
-	{
-		cout << Resource[6] << endl << endl;
-		return true;
-	}
-	else
-	{
-		cout << Resource[7] << val << endl << endl;
-		return false;
-	}
-}
+int ScanNumofProblems();
 
-/*Á½¸öscanº¯Êı£¬ÓÃÓÚÓëÊ¹ÓÃ±ê×¼ÊäÈëµÄÓÃ»§½»»¥È¡µÃÊı¾İ*/
-int ScanLanguage(char * language)//Á½¸öscanº¯ÊıÓÃÓÚÓëÓÃ»§½»»¥²¢»ñÈ¡ÊäÈëĞÅÏ¢
-{
-	while (CheckLanguageSupport(language) == false)//ÊäÈëÓïÑÔ¼ì²â
-	{
-		if (strcmp("e", language) == 0)
-		{
-			cout << endl << "The program is going to be finished. Goodbye!~" << endl;
-			getchar();
-			return -1;
-		}
-		cout << "Sorry. Your input is wrong or software does not support your language. " << endl;
+/*è¾“å‡ºç»Ÿè®¡ç»“æœç»™ç”¨æˆ·ï¼Œè¾“å‡ºåˆ°æ ‡å‡†è¾“å‡º*/
+void Print(int n, int numRight, int numWrong);
 
-		ShowLanguageList();
-		return -2;
-	}
-	return 1;
-}
+/*ä»æ–‡ä»¶ä¸­è¯»å–ä¸€ä¸ªæ•´å‹æ•°å­—è¿”å›*/
+int ReadFile(char *filename);//filenameæ˜¯ç»å¯¹è·¯å¾„
 
-int ScanNumofProblems()
-{
-	int n;
-	n = GetInt();//ÊäÈë¼ì²â
-	if (n == 0)
-	{
-		cout << Resource[0] << endl;
-		getchar();
-		getchar();
-		return 0;
-	}
-	return n;
-}
 
-/*Êä³öÍ³¼Æ½á¹û¸øÓÃ»§£¬Êä³öµ½±ê×¼Êä³ö*/
-void Print(int n, int numRight, int numWrong)
-{
-	static double accuracy;//ÕıÈ·ÂÊ
-	accuracy = (double)numRight / n * 100;
+/*å°†æœ€ç»ˆç»“æœå†™å…¥æ–‡ä»¶ï¼Œå†…å®¹åŒ…æ‹¬ï¼šç”¨æˆ·è¾“å…¥çš„é¢˜ç›®æ•°ï¼Œæ¯ä¸ªç”Ÿæˆçš„è¡¨è¾¾å¼ã€æ­£ç¡®ç­”æ¡ˆã€ç”¨æˆ·è¾“å…¥çš„ç­”æ¡ˆï¼Œ
+ä¿å­˜åˆ°å‘½ä»¤è¡Œä¸­ç¬¬äºŒä¸ªå‚æ•°æŒ‡å®šçš„è·¯å¾„ã€‚(è¯·æ³¨æ„å‚æ•°è®¾ç½®)*/
 
-	cout << Resource[9] << endl << endl;
-	cout << Resource[10] << numRight << endl;
-	cout << Resource[11] << numWrong << endl;
-	cout << Resource[12] << accuracy << "%" << endl;
+/*å†™å…¥è¡¨è¾¾å¼ã€ç”¨æˆ·è¾“å…¥ç­”æ¡ˆã€æ­£ç¡®ç­”æ¡ˆ*/
+void WriteExpression(char *filename, Expression expression, int useranswer, int rightanswer, int i);
 
-	cout << endl << Resource[0] << endl;
-}
 
-/*´ÓÎÄ¼şÖĞ¶ÁÈ¡Ò»¸öÕûĞÍÊı×Ö·µ»Ø*/
-int ReadFile(char *filename)//filenameÊÇ¾ø¶ÔÂ·¾¶
-{
-	int n;
-	fstream f;
-	f.open(filename, ios::in);
-	f >> n;
-	f.close();
-	return n;
-}
-/*½«×îÖÕ½á¹ûĞ´ÈëÎÄ¼ş£¬ÄÚÈİ°üÀ¨£ºÓÃ»§ÊäÈëµÄÌâÄ¿Êı£¬Ã¿¸öÉú³ÉµÄ±í´ïÊ½¡¢ÕıÈ·´ğ°¸¡¢ÓÃ»§ÊäÈëµÄ´ğ°¸£¬
-		±£´æµ½ÃüÁîĞĞÖĞµÚ¶ş¸ö²ÎÊıÖ¸¶¨µÄÂ·¾¶¡£(Çë×¢Òâ²ÎÊıÉèÖÃ)*/
-
-/*Ğ´Èë±í´ïÊ½¡¢ÓÃ»§ÊäÈë´ğ°¸¡¢ÕıÈ·´ğ°¸*/
-void WriteExpression(char *filename, Expression expression, int useranswer, int rightanswer, int i)
-{
-	fstream f;
-	f.open(filename, ios::app);
-
-	f << "No." << i << "\t" << expression << endl;
-	f << Resource[13] << ": " << useranswer << endl;
-	f << Resource[14] << ": " << rightanswer << endl << endl;
-
-	f.close();
-	return;
-}
-
-/*Ğ´Èë×îÖÕ½á¹û*/
-void WriteResult(char *filename, int n, int numRight, int numWrong)
-{
-	fstream f;
-	f.open(filename, ios::app);
-
-	static double accuracy;//ÕıÈ·ÂÊ
-	accuracy = (double)numRight / n * 100;
-
-	f << Resource[9] << endl << endl;
-	f << Resource[10] << numRight << endl;
-	f << Resource[11] << numWrong << endl;
-	f << Resource[12] << accuracy << "%" << endl;
-
-	f.close();
-	return;
-}
+/*å†™å…¥æœ€ç»ˆç»“æœ*/
+void WriteResult(char *filename, int n, int numRight, int numWrong);
