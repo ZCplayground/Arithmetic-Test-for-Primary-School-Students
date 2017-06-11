@@ -1,0 +1,9 @@
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\bin\Debug\四则运算GUI.exe.config
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\bin\Debug\四则运算GUI.exe
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\bin\Debug\四则运算GUI.pdb
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.csprojResolveAssemblyReference.cache
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.Form1.resources
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.Properties.Resources.resources
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.csproj.GenerateResource.Cache
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.exe
+C:\Users\a250151700\Desktop\四则运算GUI\四则运算GUI\obj\Debug\四则运算GUI.pdb
